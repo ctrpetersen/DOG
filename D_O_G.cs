@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
+using DOG.Entity;
 using DOG.Gen;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DOG
 {
-    public class DOG
+    public class D_O_G
     {
         //https://discordapp.com/oauth2/authorize?client_id=550055710038425610&permissions=378944&scope=bot
 
-        public static DOG Instance => _instance ?? (_instance = new DOG());
-        private static DOG _instance;
+        public static D_O_G Instance => _instance ?? (_instance = new D_O_G());
+        private static D_O_G _instance;
 
-        private DOG()
+        private D_O_G()
         {
             _token = File.ReadAllText("token.txt");
 
@@ -31,7 +32,7 @@ namespace DOG
             for (int i = 0; i < 50; i++)
             {
                 var rnd = new Random(Guid.NewGuid().GetHashCode());
-                var d = new Dogs
+                var d = new Dog
                 {
                     AtkPower = rnd.Next(0,20),
                     Defense = rnd.Next(0, 20),

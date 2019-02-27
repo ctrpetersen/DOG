@@ -14,7 +14,7 @@ namespace DOG.Commands
             string reply = "";
             if (commandParam != null)
             {
-                foreach (var command in DOG.Instance.CommandService.Commands)
+                foreach (var command in D_O_G.Instance.CommandService.Commands)
                 {
                     if (commandParam.ToLower() == command.Name.ToLower() || command.Aliases.Contains(commandParam.ToLower()))
                     {
@@ -27,7 +27,7 @@ namespace DOG.Commands
             }
             else
             {
-                foreach (var command in DOG.Instance.CommandService.Commands)
+                foreach (var command in D_O_G.Instance.CommandService.Commands)
                 {
                     var aliases = string.Join(", ", command.Aliases).Replace($"{command.Name}, ", "");
 

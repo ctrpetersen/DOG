@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace DOG
+namespace DOG.Entity
 {
-    public partial class Users
+    public partial class User
     {
-        public Users()
+        public User()
         {
-            Dogs = new HashSet<Dogs>();
+            Dogs = new HashSet<Dog>();
         }
 
         public int Id { get; set; }
@@ -15,8 +14,7 @@ namespace DOG
         public int TrainerExperience { get; set; }
         public int Bones { get; set; }
 
-        public virtual ICollection<Dogs> Dogs { get; set; }
-
+        public virtual ICollection<Dog> Dogs { get; set; }
 
         public override string ToString()
         {

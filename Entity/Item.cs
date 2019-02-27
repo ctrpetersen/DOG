@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DOG
+﻿namespace DOG.Entity
 {
-    public partial class Items
+    public partial class Item
     {
         public int Id { get; set; }
         public int Slot { get; set; }
@@ -15,7 +12,7 @@ namespace DOG
         public int SpecialEffect { get; set; }
         public string Name { get; set; }
 
-        public virtual Dogs Dog { get; set; }
+        public virtual Dog Dog { get; set; }
 
         public override string ToString()
         {

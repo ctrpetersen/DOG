@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DOG.Entity;
 
 namespace DOG.Gen
 {
@@ -67,7 +68,7 @@ namespace DOG.Gen
             "Waste of Meat"
         };
 
-        internal string GenerateDogName(Dogs dog)
+        internal string GenerateDogName(Dog dog)
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             var name = "";

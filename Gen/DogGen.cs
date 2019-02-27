@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Runtime.Hosting;
+using DOG.Entity;
 
 namespace DOG.Gen
 {
     public class DogGen
     {
-        internal Dogs GenerateDog(int power, int experience)
+        internal Dog GenerateDog(int power, int experience)
         {
-            var dog = new Dogs();
+            var dog = new Dog();
             var rnd = new Random(Guid.NewGuid().GetHashCode());
 
             var tierSRoll = (90, 100);

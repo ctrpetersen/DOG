@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using DOG.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -9,7 +10,6 @@ namespace DOG
     {
         public DOGContext()
         {
-            conn = File.ReadAllText("conn.txt");
         }
 
         public DOGContext(DbContextOptions<DOGContext> options)
@@ -17,17 +17,15 @@ namespace DOG
         {
         }
 
-        public virtual DbSet<Dogs> Dogs { get; set; }
-        public virtual DbSet<Items> Items { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-
-        private string conn;
+        public virtual DbSet<Dog> Dogs { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(conn);
+                optionsBuilder.UseSqlServer(File.ReadAllText("conn.txt"));
             }
         }
 
@@ -35,17 +33,21 @@ namespace DOG
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
-            modelBuilder.Entity<Dogs>(entity =>
+            modelBuilder.Entity<Dog>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.AtkPower).HasColumnName("atk_power");
+
+                entity.Property(e => e.Class).HasColumnName("class");
 
                 entity.Property(e => e.DateGotten)
                     .HasColumnName("date_gotten")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Defense).HasColumnName("defense");
+
+                entity.Property(e => e.Enchantment).HasColumnName("enchantment");
 
                 entity.Property(e => e.Experience).HasColumnName("experience");
 
@@ -74,6 +76,8 @@ namespace DOG
 
                 entity.Property(e => e.OwnerId).HasColumnName("owner_id");
 
+                entity.Property(e => e.Prayer).HasColumnName("prayer");
+
                 entity.Property(e => e.Will).HasColumnName("will");
 
                 entity.HasOne(d => d.Owner)
@@ -83,7 +87,7 @@ namespace DOG
                     .HasConstraintName("FK_Dogs_Users");
             });
 
-            modelBuilder.Entity<Items>(entity =>
+            modelBuilder.Entity<Item>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -113,7 +117,7 @@ namespace DOG
                     .HasConstraintName("FK_Items_Dogs");
             });
 
-            modelBuilder.Entity<Users>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
