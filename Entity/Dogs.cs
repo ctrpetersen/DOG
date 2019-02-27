@@ -26,5 +26,10 @@ namespace DOG
 
         public virtual Users Owner { get; set; }
         public virtual ICollection<Items> Items { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, OwnerId: {OwnerId}, Name: {Name}, Experience: {Experience}, LastTrained: {LastTrained}, DateGotten: {DateGotten}, Health: {Health}, AtkPower: {AtkPower}, Defense: {Defense}, Will: {Will}, Intelligence: {Intelligence}, ImagePath: {ImagePath}, Origin: {Origin}, Owner: {Owner}, Items: {Items}";
+        }
     }
 }

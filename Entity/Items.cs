@@ -16,5 +16,10 @@ namespace DOG
         public string Name { get; set; }
 
         public virtual Dogs Dog { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Slot: {Slot}, DogId: {DogId}, AtkPower: {AtkPower}, Defense: {Defense}, Will: {Will}, Intelligence: {Intelligence}, SpecialEffect: {SpecialEffect}, Name: {Name}, Dog: {Dog}";
+        }
     }
 }

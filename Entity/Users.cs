@@ -16,5 +16,11 @@ namespace DOG
         public int Bones { get; set; }
 
         public virtual ICollection<Dogs> Dogs { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, DiscordId: {DiscordId}, TrainerExperience: {TrainerExperience}, Bones: {Bones}, Dogs: {Dogs}";
+        }
     }
 }
