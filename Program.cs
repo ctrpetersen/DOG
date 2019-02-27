@@ -8,6 +8,6 @@ namespace DOG
 {
     internal class Program
     {
-        private static void Main(string[] args) => new DOG().StartAsync().GetAwaiter().GetResult();
+        private static void Main(string[] args) => DOG.Instance.StartAsync().GetAwaiter().GetResult();
     }
 }

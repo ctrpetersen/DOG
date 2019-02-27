@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
+using DOG.Gen;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DOG
@@ -14,17 +15,41 @@ namespace DOG
     {
         //https://discordapp.com/oauth2/authorize?client_id=550055710038425610&permissions=378944&scope=bot
 
+        public static DOG Instance => _instance ?? (_instance = new DOG());
+        private static DOG _instance;
+
+        private DOG()
+        {
+            _token = File.ReadAllText("token.txt");
+
+
+
+
+            var ng = new NameGen();
+
+
+            for (int i = 0; i < 50; i++)
+            {
+                var rnd = new Random(Guid.NewGuid().GetHashCode());
+                var d = new Dogs
+                {
+                    AtkPower = rnd.Next(0,20),
+                    Defense = rnd.Next(0, 20),
+                    Health = rnd.Next(0, 20),
+                    Will = rnd.Next(0, 20),
+                    Intelligence = rnd.Next(0, 20)
+                };
+
+                Console.WriteLine(ng.GenerateDogName(d));
+            }
+        }
+
         internal DiscordSocketClient Client;
         internal DOGContext Context = new DOGContext();
         internal CommandService CommandService;
 
         private IServiceProvider _services;
-        private string _token;
-
-        public DOG()
-        {
-            _token = File.ReadAllText("token.txt");
-        }
+        private readonly string _token;
 
         public async Task StartAsync()
         {
