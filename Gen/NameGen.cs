@@ -345,10 +345,10 @@ namespace DOG.Gen
         private readonly List<string> _dogSuffixWill = new List<string>
         {
             "Steel-willed",
-            "Iron-willed"
+            "Iron-willed",
             "Gene King",
             "Scarred",
-            "Unhinged"
+            "Unhinged",
             "Number one Social Worker",
             "Suicide Hotline host",
             "Happy",
@@ -407,7 +407,7 @@ namespace DOG.Gen
             "Dream-Maker",
             "Nightmare-Slayer",
             "Bulwark of Humanity",
-            "Bulwark of Dogs"
+            "Bulwark of Dogs",
             "Wise",
             "Priest",
             "Cultist",
@@ -479,7 +479,7 @@ namespace DOG.Gen
             "PETA defender",
             "Self-righteous",
             "bacteria that won't be a thing to become",
-            "Brainless"
+            "Brainless",
             "Idiot"
         };
 
@@ -490,7 +490,7 @@ namespace DOG.Gen
             "Ancient One",
             "Forsaken",
             "Exiled One",
-            "Divine Divinity"
+            "Divine Divinity",
             "Herald of the Apocalypse",
             "Harbinger",
             "Demi-God",
