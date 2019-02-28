@@ -266,7 +266,9 @@ namespace DOG.Gen
             "Meatsack",
             "Bloodgiant",
             "Thick",
-            "Big-boned"
+            "Big-boned",
+            "Healthy",
+            "Robust"
         };
 
         private List<string> _dogSuffixInt = new List<string>

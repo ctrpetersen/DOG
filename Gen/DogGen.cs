@@ -12,7 +12,7 @@ namespace DOG.Gen
 
         private List<Tuple<int,int>> _rolls = new List<Tuple<int, int>>
         {
-            new Tuple<int, int>(90, 100),
+            new Tuple<int, int>(90, 101),
             new Tuple<int, int>(80, 89),
             new Tuple<int, int>(70, 79),
             new Tuple<int, int>(60, 69),
@@ -113,19 +113,19 @@ namespace DOG.Gen
                     dog.AtkPower = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Health = _rollStat(remainingChance);
-                    remainingChance = remainingChance / StatPenaltyScaling;
-
                     dog.Will = _rollStat(remainingChance);
-                    remainingChance = remainingChance / StatPenaltyScaling;
-
-                    dog.Defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
                     dog.Prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
+                    dog.Defense = _rollStat(remainingChance);
+                    remainingChance = remainingChance / StatPenaltyScaling;
+
                     dog.Intelligence = _rollStat(remainingChance);
+                    remainingChance = remainingChance / StatPenaltyScaling;
+
+                    dog.Health = _rollStat(remainingChance);
                     break;
                 case 4:
                     dog.Will = _rollStat(remainingChance);

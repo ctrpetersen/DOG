@@ -265,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandsUtility.cs" />
+    <Compile Include="Entity\DogClass.cs" />
     <Compile Include="Entity\Dog.cs" />
     <Compile Include="Entity\DOGContext.cs" />
     <Compile Include="D_O_G.cs" />
