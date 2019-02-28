@@ -23,25 +23,24 @@ namespace DOG
         {
             _token = File.ReadAllText("token.txt");
 
+            var dg = new DogGen();
 
-
-
-            var ng = new NameGen();
-
-
-            for (int i = 0; i < 50; i++)
+            Console.WriteLine("GENERATING WITH 10 POWER");
+            for (int i = 0; i < 10; i++)
             {
-                var rnd = new Random(Guid.NewGuid().GetHashCode());
-                var d = new Dog
-                {
-                    AtkPower = rnd.Next(0,20),
-                    Defense = rnd.Next(0, 20),
-                    Health = rnd.Next(0, 20),
-                    Will = rnd.Next(0, 20),
-                    Intelligence = rnd.Next(0, 20)
-                };
+                Console.WriteLine(dg.GenerateDog(10, 0));
+            }
 
-                Console.WriteLine(ng.GenerateDogName(d));
+            Console.WriteLine("\n\nGENERATING WITH 50 POWER");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(dg.GenerateDog(50, 0));
+            }
+
+            Console.WriteLine("\n\nGENERATING WITH 100 POWER");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(dg.GenerateDog(100, 0));
             }
         }
 
