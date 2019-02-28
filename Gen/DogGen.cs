@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
 using DOG.Entity;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace DOG.Gen
 {
@@ -10,8 +15,9 @@ namespace DOG.Gen
         private const float NextTierAddition = 0.0005F;
         private const float StatPenaltyScaling = 1.1F;
         private NameGen _ng = new NameGen();
-        private string[] dogPictures = Directory.GetFiles("D:\\Dev\\DOG\\dogs", "*.jpg", SearchOption.AllDirectories);
-        private Random rnd = new Random(Guid.NewGuid().GetHashCode());
+        //private string[] dogPictures = Directory.GetFiles("D:\\Dev\\DOG\\dogs", "*.jpg", SearchOption.AllDirectories);
+        private JArray _dogPictures = JArray.Parse(File.ReadAllText("D:\\Dev\\DOG\\Gen\\dogs.json"));
+        private Random _rnd = new Random(Guid.NewGuid().GetHashCode());
 
         private List<Tuple<int,int>> _rolls = new List<Tuple<int, int>>
         {
@@ -35,9 +41,9 @@ namespace DOG.Gen
 
             foreach (var t in _rolls)
             {
-                if (rnd.NextDouble() < chance)
+                if (_rnd.NextDouble() < chance)
                 {
-                    return rnd.Next(t.Item1, t.Item2);
+                    return _rnd.Next(t.Item1, t.Item2);
                 }
                 else
                 {
@@ -45,7 +51,7 @@ namespace DOG.Gen
                 }
             }
 
-            return rnd.Next(_rolls[9].Item1, _rolls[9].Item2);
+            return _rnd.Next(_rolls[9].Item1, _rolls[9].Item2);
         }
 
         internal Dog GenerateDog(int power, int experience)
@@ -53,7 +59,7 @@ namespace DOG.Gen
             var dog = new Dog();
             
             var remainingChance = (power * 0.01F);
-            var randomRoll = rnd.Next(0, 6);
+            var randomRoll = _rnd.Next(0, 6);
 
             switch (randomRoll)
             {
@@ -180,18 +186,18 @@ namespace DOG.Gen
             }
             
             var classBonus = DogClass.GetClassBonus((DogClasses)dog.Class);
-            dog.Prayer = Math.Min(200, Math.Max(0, Convert.ToInt32(dog.Prayer * classBonus.PrayerScaling)));
-            dog.AtkPower = Math.Min(200, Math.Max(0, Convert.ToInt32(dog.AtkPower * classBonus.AtkPowerScaling)));
-            dog.Defense = Math.Min(200, Math.Max(0, Convert.ToInt32(dog.Defense * classBonus.DefenseScaling)));
-            dog.Health = Math.Min(200, Math.Max(0, Convert.ToInt32(dog.Health * classBonus.HealthScaling)));
-            dog.Intelligence = Math.Min(200, Math.Max(0, Convert.ToInt32(dog.Intelligence * classBonus.IntelligenceScaling)));
-            dog.Will = Math.Min(200, Math.Max(0, Convert.ToInt32(dog.Will * classBonus.WillScaling)));
+            dog.Prayer = Math.Min(200, Math.Max(0, (int) (dog.Prayer * classBonus.PrayerScaling)));
+            dog.AtkPower = Math.Min(200, Math.Max(0, (int) (dog.AtkPower * classBonus.AtkPowerScaling)));
+            dog.Defense = Math.Min(200, Math.Max(0, (int) (dog.Defense * classBonus.DefenseScaling)));
+            dog.Health = Math.Min(200, Math.Max(0, (int) (dog.Health * classBonus.HealthScaling)));
+            dog.Intelligence = Math.Min(200, Math.Max(0, (int) (dog.Intelligence * classBonus.IntelligenceScaling)));
+            dog.Will = Math.Min(200, Math.Max(0, (int) (dog.Will * classBonus.WillScaling)));
 
-            dog.Name = _ng.GenerateDogName(dog);
+            dog.Name = _ng.GenerateDogName(ref dog);
             dog.Experience = experience;
 
-            
-            dog.ImagePath = dogPictures[rnd.Next(dogPictures.Length)];
+
+            dog.ImagePath = "https://random.dog/" + _dogPictures[_rnd.Next(_dogPictures.Count)];
 
 
             return dog;

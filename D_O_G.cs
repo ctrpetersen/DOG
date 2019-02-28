@@ -99,6 +99,7 @@ namespace DOG
         private async Task HandleCommandAsync(SocketMessage messageParam)
         {
             if (!(messageParam is SocketUserMessage message)) return;
+            if (message.Author.IsBot) return;
 
             var argPos = 0;
             if (!(message.HasCharPrefix('*', ref argPos) || message.HasMentionPrefix(Client.CurrentUser, ref argPos))) return;

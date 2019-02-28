@@ -315,10 +315,11 @@ namespace DOG.Gen
             "Exiled One"
         };
 
-        private const int GodlikeMin = 85;
+        private const int GodlikeMin = 180;
         private const int UselessMax = 15;
+        private const float GodlikeScale = 1.2F;
 
-        internal string GenerateDogName(Dog dog)
+        internal string GenerateDogName(ref Dog dog)
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             var name = "";
@@ -348,14 +349,21 @@ namespace DOG.Gen
                 name += " the " + _dogSuffixUseless[rnd.Next(0, _dogSuffixUseless.Count)];
             }
 
-            else if (dog.AtkPower > GodlikeMin && 
-                     dog.Defense > GodlikeMin && 
-                     dog.Health > GodlikeMin && 
-                     dog.Intelligence > GodlikeMin &&
-                     dog.Will > GodlikeMin && 
+            else if (dog.AtkPower > GodlikeMin || 
+                     dog.Defense > GodlikeMin || 
+                     dog.Health > GodlikeMin || 
+                     dog.Intelligence > GodlikeMin ||
+                     dog.Will > GodlikeMin || 
                      dog.Prayer > GodlikeMin)
             {
                 name += " the " + _dogSuffixGodlike[rnd.Next(0, _dogSuffixGodlike.Count)];
+
+                dog.AtkPower = (int) (dog.AtkPower * GodlikeScale);
+                dog.Defense = (int) (dog.Defense * GodlikeScale);
+                dog.Health = (int)(dog.Health * GodlikeScale);
+                dog.Intelligence = (int)(dog.Intelligence * GodlikeScale);
+                dog.Will = (int)(dog.Will * GodlikeScale);
+                dog.Prayer = (int)(dog.Prayer * GodlikeScale);
             }
 
             else if (dog.AtkPower >= dog.Defense &&

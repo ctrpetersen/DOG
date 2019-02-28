@@ -281,6 +281,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="efpt.config.json" />
+    <None Include="Gen\dogs.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
