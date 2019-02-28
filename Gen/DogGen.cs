@@ -17,7 +17,7 @@ namespace DOG.Gen
         private NameGen _ng = new NameGen();
         //private string[] dogPictures = Directory.GetFiles("D:\\Dev\\DOG\\dogs", "*.jpg", SearchOption.AllDirectories);
         private JArray _dogPictures = JArray.Parse(File.ReadAllText("D:\\Dev\\DOG\\Gen\\dogs.json"));
-        private Random _rnd = new Random(Guid.NewGuid().GetHashCode());
+        
 
         private List<Tuple<int,int>> _rolls = new List<Tuple<int, int>>
         {
@@ -35,7 +35,7 @@ namespace DOG.Gen
 
         private int _rollStat(float chance)
         {
-            
+            var _rnd = new Random(Guid.NewGuid().GetHashCode());
             chance = chance * (chance - 0.08F);
 
 
@@ -58,6 +58,7 @@ namespace DOG.Gen
 
         internal Dog GenerateDog(int power, int experience)
         {
+            var _rnd = new Random(Guid.NewGuid().GetHashCode());
             var dog = new Dog();
             
             var remainingChance = (power * 0.01F);

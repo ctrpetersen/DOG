@@ -6,7 +6,7 @@ namespace DOG.Gen
 {
     internal class NameGen
     {
-        private List<string> _dogPrefixes = new List<string>
+        private readonly List<string> _dogPrefixes = new List<string>
         {
             "Emperor",
             "Caesar",
@@ -35,7 +35,7 @@ namespace DOG.Gen
             "Duchess"
         };
 
-        private List<string> _dogNames = new List<string>
+        private readonly List<string> _dogNames = new List<string>
         {
             "Woof",
             "Bork",
@@ -253,7 +253,7 @@ namespace DOG.Gen
             "Zoey"
         };
 
-        private List<string> _dogSuffixDefense = new List<string>
+        private readonly List<string> _dogSuffixDefense = new List<string>
         {
             "Tank",
             "Iron Giant",
@@ -261,7 +261,7 @@ namespace DOG.Gen
             "Heavy"
         };
 
-        private List<string> _dogSuffixHealth = new List<string>
+        private readonly List<string> _dogSuffixHealth = new List<string>
         {
             "Meatsack",
             "Bloodgiant",
@@ -271,7 +271,7 @@ namespace DOG.Gen
             "Robust"
         };
 
-        private List<string> _dogSuffixInt = new List<string>
+        private readonly List<string> _dogSuffixInt = new List<string>
         {
             "Smart",
             "Big-brained",
@@ -279,19 +279,21 @@ namespace DOG.Gen
             "Mage"
         };
 
-        private List<string> _dogSuffixWill = new List<string>
+        private readonly List<string> _dogSuffixWill = new List<string>
         {
             "Steel-willed",
             "Iron-willed"
         };
 
-        private List<string> _dogSuffixPrayer = new List<string>
+        private readonly List<string> _dogSuffixPrayer = new List<string>
         {
             "Wise",
-            "Priest"
+            "Priest",
+            "Cultist",
+            "Priestess",
         };
 
-        private List<string> _dogSuffixAtk = new List<string>
+        private readonly List<string> _dogSuffixAtk = new List<string>
         {
             "Barbarian",
             "Bloodshedder",
@@ -299,14 +301,15 @@ namespace DOG.Gen
             "Ruthless"
         };
 
-        private List<string> _dogSuffixUseless = new List<string>
+        private readonly List<string> _dogSuffixUseless = new List<string>
         {
             "Useless",
             "Incompetent",
-            "Waste of Meat"
+            "Waste of Meat",
+            "Idiot"
         };
 
-        private List<string> _dogSuffixGodlike = new List<string>
+        private readonly List<string> _dogSuffixGodlike = new List<string>
         {
             "Destroyer of Worlds",
             "Eater of Souls",
@@ -317,53 +320,53 @@ namespace DOG.Gen
 
         private const int GodlikeMin = 180;
         private const int UselessMax = 15;
-        private const float GodlikeScale = 1.2F;
+        private const double GodlikeScale = 1.2;
+        private const int GodlikeFlatIncrease = 15;
+        private const double ChanceOfGodlike = 0.04;
 
         internal string GenerateDogName(ref Dog dog)
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             var name = "";
 
-            var prefixChance = (float)(dog.Prayer + dog.AtkPower + dog.Defense + dog.Health + dog.Intelligence + dog.Will) / 6 * 0.01F;
+            var prefixChance =
+                (float) (dog.Prayer + dog.AtkPower + dog.Defense + dog.Health + dog.Intelligence + dog.Will) / 6 *
+                0.01F;
             prefixChance = prefixChance * (prefixChance - 0.7F);
-            
+
 
             foreach (var t in _dogPrefixes)
-            {
                 if (rnd.NextDouble() < prefixChance)
                 {
                     name += t + " ";
                     break;
                 }
-            }
 
             name += _dogNames[rnd.Next(0, _dogNames.Count)];
 
-            if (dog.AtkPower < UselessMax && 
-                dog.Defense < UselessMax && 
-                dog.Health < UselessMax && 
-                dog.Intelligence < UselessMax && 
-                dog.Will < UselessMax &&
-                dog.Prayer < UselessMax)
-            {
-                name += " the " + _dogSuffixUseless[rnd.Next(0, _dogSuffixUseless.Count)];
-            }
 
-            else if (dog.AtkPower > GodlikeMin || 
-                     dog.Defense > GodlikeMin || 
-                     dog.Health > GodlikeMin || 
-                     dog.Intelligence > GodlikeMin ||
-                     dog.Will > GodlikeMin || 
-                     dog.Prayer > GodlikeMin)
+            if (rnd.NextDouble() < ChanceOfGodlike)
             {
                 name += " the " + _dogSuffixGodlike[rnd.Next(0, _dogSuffixGodlike.Count)];
 
-                dog.AtkPower = (int) (dog.AtkPower * GodlikeScale);
-                dog.Defense = (int) (dog.Defense * GodlikeScale);
-                dog.Health = (int)(dog.Health * GodlikeScale);
-                dog.Intelligence = (int)(dog.Intelligence * GodlikeScale);
-                dog.Will = (int)(dog.Will * GodlikeScale);
-                dog.Prayer = (int)(dog.Prayer * GodlikeScale);
+                dog.AtkPower = (int) ((dog.AtkPower + GodlikeFlatIncrease) * GodlikeScale);
+                dog.Defense = (int) ((dog.Defense + GodlikeFlatIncrease) * GodlikeScale);
+                dog.Health = (int) ((dog.Health + GodlikeFlatIncrease) * GodlikeScale);
+                dog.Intelligence = (int) ((dog.Intelligence + GodlikeFlatIncrease) * GodlikeScale);
+                dog.Will = (int) ((dog.Will + GodlikeFlatIncrease) * GodlikeScale);
+                dog.Prayer = (int) ((dog.Prayer + GodlikeFlatIncrease) * GodlikeScale);
+
+                Console.WriteLine("\n!!!GODLIKE!!!\n");
+            }
+
+            else if (dog.AtkPower < UselessMax &&
+                     dog.Defense < UselessMax &&
+                     dog.Health < UselessMax &&
+                     dog.Intelligence < UselessMax &&
+                     dog.Will < UselessMax &&
+                     dog.Prayer < UselessMax)
+            {
+                name += " the " + _dogSuffixUseless[rnd.Next(0, _dogSuffixUseless.Count)];
             }
 
             else if (dog.AtkPower >= dog.Defense &&
@@ -419,7 +422,6 @@ namespace DOG.Gen
             {
                 name += " the " + _dogSuffixPrayer[rnd.Next(0, _dogSuffixPrayer.Count)];
             }
-
 
 
             return name;

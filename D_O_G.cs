@@ -38,7 +38,7 @@ namespace DOG
             }
 
             Console.WriteLine("\n\nGENERATING WITH 100 POWER");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Console.WriteLine(dg.GenerateDog(100, 0));
             }
