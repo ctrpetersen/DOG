@@ -32,7 +32,7 @@ namespace DOG.Entity
 
         public override string ToString()
         {
-            return $"Name: {Name}, Health: {Health}, AtkPower: {AtkPower}, Defense: {Defense}, Prayer: {Prayer}, Will: {Will}, Intelligence: {Intelligence}";
+            return $"{(DogClasses)Class}, {Name}, Health: {Health}, AtkPower: {AtkPower}, Defense: {Defense}, Prayer: {Prayer}, Will: {Will}, Intelligence: {Intelligence}, Path: {ImagePath}";
         }
     }
 }

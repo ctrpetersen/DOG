@@ -47,6 +47,7 @@ namespace DOG
         internal DiscordSocketClient Client;
         internal DOGContext Context = new DOGContext();
         internal CommandService CommandService;
+        internal DogGen DogGen = new DogGen();
 
         private IServiceProvider _services;
         private readonly string _token;
