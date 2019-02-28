@@ -32,7 +32,12 @@ namespace DOG.Gen
             "Laird",
             "Esquire",
             "Gentleman",
-            "Duchess"
+            "Duchess",
+            "Praetor",
+            "General",
+            "Master",
+            "Cherubim",
+            "Wolf-King"
         };
 
         private List<string> _dogNames = new List<string>
@@ -53,6 +58,7 @@ namespace DOG.Gen
             "Longboye",
             "Ace",
             "Apollo",
+            "Argus",
             "Bailey",
             "Bandit",
             "Baxter",
@@ -61,6 +67,7 @@ namespace DOG.Gen
             "Benji",
             "Benny",
             "Bentley",
+            "Bits",
             "Blue",
             "Bo",
             "Boomer",
@@ -101,6 +108,7 @@ namespace DOG.Gen
             "Jake",
             "Jasper",
             "Jax",
+            "Joe",
             "Joey",
             "Kobe",
             "Leo",
@@ -110,6 +118,7 @@ namespace DOG.Gen
             "Luke",
             "Mac",
             "Marley",
+            "Mars",
             "Max",
             "Mickey",
             "Milo",
@@ -229,12 +238,14 @@ namespace DOG.Gen
             "Piper",
             "Princess",
             "Riley",
+            "Rogan",
             "Rosie",
             "Roxie",
             "Roxy",
             "Ruby",
             "Sadie",
             "Sally",
+            "Samson",
             "Sandy",
             "Sasha",
             "Sassy",
@@ -250,7 +261,8 @@ namespace DOG.Gen
             "Willow",
             "Winnie",
             "Zoe",
-            "Zoey"
+            "Zoey",
+            "ZoomZoom"
         };
 
         private List<string> _dogSuffixDefense = new List<string>
@@ -258,7 +270,28 @@ namespace DOG.Gen
             "Tank",
             "Iron Giant",
             "Armoured",
-            "Heavy"
+            "Heavy",
+            "Heavy-Duty",
+            "Absolute Unit",
+            "Metal Gear",
+            "Jaeger",
+            "Colossus",
+            "Minotaur",
+            "Gauntlet",
+            "Vanguard",
+            "Iron Strider",
+            "Paragon",
+            "Agememnon",
+            "Guardian",
+            "Juggernaut",
+            "Sentinel",
+            "Dreadnought",
+            "Titan",
+            "Golem",
+            "Steel Machine",
+            "Basalt-Infused",
+            "Galena-Infused",
+            "Iron-Infused"
         };
 
         private List<string> _dogSuffixHealth = new List<string>
@@ -268,27 +301,113 @@ namespace DOG.Gen
             "Thick",
             "Big-boned",
             "Healthy",
-            "Robust"
+            "Robust",
+            "Milk-Drinker",
+            "Hannibal",
+            "Quartz-infused",
+            "Emerald-infused",
+            "Lion",
+            "Peanut Choker",
+            "Yoga practicioner",
+            "Endurance Hunter",
+            "Fit",
+            "Shining Sun",
+            "Vegetarian",
+            "Carnivore",
+            "Moss Artifician",
+            "Fungi Afficionado",
+            "Guacamole Expert"
         };
 
         private List<string> _dogSuffixInt = new List<string>
         {
             "Smart",
             "Big-brained",
+            "Mage",
             "Wise",
-            "Mage"
+            "Enlightened",
+            "Nerd",
+            "Creator",
+            "Inventor",
+            "Well-travelled",
+            "Lapis-Infused",
+            "Crow-like",
+            "Raven-like",
+            "Agency Director",
+            "Shaman",
+            "Sage",
+            "Philosopher",
+            "Scientist",
+            "Doggist",
+            "Engineer"
         };
 
         private List<string> _dogSuffixWill = new List<string>
         {
             "Steel-willed",
             "Iron-willed"
+            "Gene King",
+            "Scarred",
+            "Unhinged"
+            "Number one Social Worker",
+            "Suicide Hotline host",
+            "Happy",
+            "Jaded",
+            "Ocean Hound",
+            "Soulful",
+            "Empath Silk"
         };
 
         private List<string> _dogSuffixPrayer = new List<string>
         {
-            "Wise",
-            "Priest"
+            "Priest",
+            "Pastor",
+            "Divine",
+            "Head of the Church",
+            "Crucifix-bearer",
+            "Cult leader",
+            "Soulrester",
+            "Just",
+            "Righteous",
+            "Inquisitor",
+            "Devout",
+            "Pious",
+            "Religious",
+            "Agnostic",
+            "Sacred",
+            "Saint",
+            "Moral Saint",
+            "Sanctified",
+            "Holy",
+            "Apostle",
+            "Scripture Writer",
+            "Angel",
+            "Bishop",
+            "Messenger",
+            "Pariah of sins",
+            "Virtuous",
+            "Templar",
+            "Soldier of Faith",
+            "Dog of Purity",
+            "Saver",
+            "Trinitarian Conceptor",
+            "Worshipped",
+            "Slayer of sinners",
+            "Vice-free",
+            "Ascended",
+            "Speaker to Eternium",
+            "Sight Giver",
+            "Paws of Heaven",
+            "Will of the Gods",
+            "Wandering PawJew",
+            "Realized utopistic dog",
+            "Beacon of Hope",
+            "Light",
+            "Stream of Dreams",
+            "Dream-Maker",
+            "Nightmare-Slayer",
+            "Bulwark of Humanity",
+            "Bulwark of Dogs"
         };
 
         private List<string> _dogSuffixAtk = new List<string>
@@ -296,14 +415,66 @@ namespace DOG.Gen
             "Barbarian",
             "Bloodshedder",
             "Angry",
-            "Ruthless"
+            "Ruthless",
+            "Pyrite-infused",
+            "Incinerator",
+            "Savage",
+            "Overly Aggressive",
+            "Hollow",
+            "Shade of Hate",
+            "Avatar of Hate",
+            "Wrathful",
+            "Hateful",
+            "Heart-piercer",
+            "Organ-stealer",
+            "Cannibal",
+            "Berserker",
+            "Ender",
+            "Whale Killer",
+            "Genocider",
+            "Mass Murderer",
+            "Bloody Gladiator",
+            "Champion of Blood",
+            "Crimson",
+            "Demonic",
+            "Sixteen-Pawed",
+            "Heavy Weaponry Master",
+            "Horse Decapitator",
+            "Volcano",
+            "Fiery",
+            "Maker of widows",
+            "Hungry Hyena",
+            "Restless",
+            "Dervish"
         };
 
         private List<string> _dogSuffixUseless = new List<string>
         {
             "Useless",
             "Incompetent",
-            "Waste of Meat"
+            "Waste of Meat",
+            "Salt-infused",
+            "Vegan",
+            "Yellow Vest",
+            "Piece of trash",
+            "Abortion that should-have-been",
+            "Chihuahua",
+            "Incel",
+            "Hopelessly stupid",
+            "Hopeless",
+            "Diseased",
+            "One-hundred years old wrinkled puppy",
+            "Manchild",
+            "Vagan's Avatar",
+            "Caustically autistic",
+            "Critically Failing",
+            "Hollowed Internal Structure",
+            "Seriously bad at everything",
+            "Subscribed to the Euthanasia list",
+            "PETA defender",
+            "Self-righteous",
+            "bacteria that won't be a thing to become",
+            "Brainless"
         };
 
         private List<string> _dogSuffixGodlike = new List<string>
@@ -312,7 +483,29 @@ namespace DOG.Gen
             "Eater of Souls",
             "Ancient One",
             "Forsaken",
-            "Exiled One"
+            "Exiled One",
+            "Divine Divinity"
+            "Herald of the Apocalypse",
+            "Harbinger",
+            "Demi-God",
+            "Center of Gravity",
+            "Unmaker",
+            "Black Hole",
+            "Ossuary",
+            "Infinite Catacomb",
+            "Cremator",
+            "Dominator from the Seven Hells",
+            "Cerberus",
+            "Celestial",
+            "Absolute",
+            "Omnipotent",
+            "Omniscient",
+            "Second Sun",
+            "Time Manipulator",
+            "Eternal",
+            "Seraphim",
+            "Bulwark of the Universe",
+            "Salvation"
         };
 
         private const int GodlikeMin = 85;
