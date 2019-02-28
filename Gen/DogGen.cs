@@ -22,14 +22,14 @@ namespace DOG.Gen
         private List<Tuple<int,int>> _rolls = new List<Tuple<int, int>>
         {
             new Tuple<int, int>(90, 101),
-            new Tuple<int, int>(80, 89),
-            new Tuple<int, int>(70, 79),
-            new Tuple<int, int>(60, 69),
-            new Tuple<int, int>(50, 59),
-            new Tuple<int, int>(40, 49),
-            new Tuple<int, int>(30, 39),
-            new Tuple<int, int>(20, 29),
-            new Tuple<int, int>(10, 19),
+            new Tuple<int, int>(80, 90),
+            new Tuple<int, int>(70, 80),
+            new Tuple<int, int>(60, 70),
+            new Tuple<int, int>(50, 60),
+            new Tuple<int, int>(40, 50),
+            new Tuple<int, int>(30, 40),
+            new Tuple<int, int>(20, 30),
+            new Tuple<int, int>(10, 20),
             new Tuple<int, int>(0, 9)
         };
 
@@ -49,6 +49,8 @@ namespace DOG.Gen
                 {
                     chance += NextTierAddition;
                 }
+                
+                
             }
 
             return _rnd.Next(_rolls[9].Item1, _rolls[9].Item2);

@@ -35,7 +35,7 @@ namespace DOG.Entity
 
     internal static class DogClass
     {
-        public static DogClassBonuses GetClassBonus(DogClasses dogClass)
+        internal static DogClassBonuses GetClassBonus(DogClasses dogClass)
         {
             var classBonus = new DogClassBonuses();
 
