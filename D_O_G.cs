@@ -38,7 +38,7 @@ namespace DOG
             }
 
             Console.WriteLine("\n\nGENERATING WITH 100 POWER");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Console.WriteLine(dg.GenerateDog(100, 0));
             }
@@ -99,6 +99,7 @@ namespace DOG
         private async Task HandleCommandAsync(SocketMessage messageParam)
         {
             if (!(messageParam is SocketUserMessage message)) return;
+            if (message.Author.IsBot) return;
 
             var argPos = 0;
             if (!(message.HasCharPrefix('*', ref argPos) || message.HasMentionPrefix(Client.CurrentUser, ref argPos))) return;
