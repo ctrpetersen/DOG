@@ -23,7 +23,7 @@ namespace DOG
         {
             _token = File.ReadAllText("token.txt");
 
-            var dg = new DogGen();
+/*            var dg = new DogGen();
 
             Console.WriteLine("GENERATING WITH 10 POWER");
             for (int i = 0; i < 10; i++)
@@ -41,7 +41,7 @@ namespace DOG
             for (int i = 0; i < 100; i++)
             {
                 Console.WriteLine(dg.GenerateDog(100, 0));
-            }
+            }*/
         }
 
         internal DiscordSocketClient Client;

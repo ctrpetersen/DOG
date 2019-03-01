@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
+using DOG.Entity;
 
 namespace DOG
 {
@@ -35,6 +36,51 @@ namespace DOG
         public static async void SetPlaying(string message, DiscordSocketClient client, ActivityType activityType = ActivityType.Playing)
         {
             await client.SetGameAsync($"{message} | {client.Guilds.Count} guilds, {client.Guilds.Sum(guild => guild.Users.Count) - 1} users", null, activityType);
+        }
+
+        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, bool isWild = false)
+        {
+            var eb = new EmbedBuilder();
+            eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
+            eb.WithColor(Color.DarkBlue);
+            
+
+            if (dog != null)
+            {
+                eb.AddField($"**{dog.Name}**", (DogClasses)dog.Class);
+
+                eb.AddField($"⚔    🛡    ❤", $"```{dog.AtkPower.ToString().PadRight(4) + dog.Defense.ToString().PadRight(5) + dog.Health}```");
+                eb.AddField($"🔮    🔰    🙏", $"```{dog.Intelligence.ToString().PadRight(4) + dog.Will.ToString().PadRight(5) + dog.Prayer}```");
+
+                eb.WithImageUrl(dog.ImagePath);
+                eb.WithCurrentTimestamp();
+                eb.WithFooter(dog.Experience + " experience");
+
+                switch ((DogClasses)dog.Class)
+                {
+                    case DogClasses.Assassin:
+                        eb.WithThumbnailUrl("https://i.imgur.com/Fs1Hzf5.png");
+                        break;
+                    case DogClasses.Champion:
+                        eb.WithThumbnailUrl("https://i.imgur.com/TqjvWHJ.png");
+                        break;
+                    case DogClasses.Elementalist:
+                        eb.WithThumbnailUrl("https://i.imgur.com/XeqOcHE.png");
+                        break;
+                    case DogClasses.Guardian:
+                        eb.WithThumbnailUrl("https://i.imgur.com/CVyhxuC.png");
+                        break;
+                    case DogClasses.Paladin:
+                        eb.WithThumbnailUrl("https://i.imgur.com/RF1IfGj.png");
+                        break;
+                    case DogClasses.Warlock:
+                        eb.WithThumbnailUrl("https://i.imgur.com/S3dfkP5.png");
+                        break;
+                }
+                
+            }
+
+            return eb.Build();
         }
     }
 }

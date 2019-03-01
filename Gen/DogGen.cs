@@ -58,11 +58,11 @@ namespace DOG.Gen
 
         internal Dog GenerateDog(int power, int experience)
         {
-            var _rnd = new Random(Guid.NewGuid().GetHashCode());
+            var rnd = new Random(Guid.NewGuid().GetHashCode());
             var dog = new Dog();
             
             var remainingChance = (power * 0.01F);
-            var randomRoll = _rnd.Next(0, 6);
+            var randomRoll = rnd.Next(0, 6);
 
             switch (randomRoll)
             {
@@ -200,7 +200,7 @@ namespace DOG.Gen
             dog.Experience = experience;
 
 
-            dog.ImagePath = "https://random.dog/" + _dogPictures[_rnd.Next(_dogPictures.Count)];
+            dog.ImagePath = "https://random.dog/" + _dogPictures[rnd.Next(_dogPictures.Count)];
 
 
             return dog;
