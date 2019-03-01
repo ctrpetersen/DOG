@@ -38,7 +38,7 @@ namespace DOG
             await client.SetGameAsync($"{message} | {client.Guilds.Count} guilds, {client.Guilds.Sum(guild => guild.Users.Count) - 1} users", null, activityType);
         }
 
-        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, bool catchable = false)
+        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, bool catchable = false, bool hasBeenCatched = false, string catchedBy = "")
         {
             var eb = new EmbedBuilder();
             eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
@@ -77,9 +77,13 @@ namespace DOG
                         break;
                 }
 
-                if (catchable)
+                if (catchable && !hasBeenCatched)
                 {
                     eb.AddField("**This dog is able to be catched!**", "React to this message to catch it!");
+                }
+                else if (catchable)
+                {
+                    eb.AddField("**This dog has been catched!**", $"Catched by {catchedBy}!");
                 }
             }
             else

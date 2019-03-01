@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -50,6 +51,7 @@ namespace DOG
         public DOGContext Context = new DOGContext();
         public CommandService CommandService;
         public DogGen DogGen = new DogGen();
+        public Dictionary<ulong, TaskCompletionSource<ulong>> DogsUpForCapture = new Dictionary<ulong, TaskCompletionSource<ulong>>();
 
         private IServiceProvider _services;
         private readonly string _token;
@@ -58,7 +60,8 @@ namespace DOG
         {
             Client = new DiscordSocketClient(new DiscordSocketConfig()
             {
-                LogLevel = LogSeverity.Debug
+                LogLevel = LogSeverity.Debug,
+                MessageCacheSize = 500
             });
 
             CommandService = new CommandService();
@@ -72,6 +75,8 @@ namespace DOG
             await Client.StartAsync();
 
             Client.JoinedGuild += JoinedGuild;
+            Client.ReactionAdded += Client_ReactionAdded;
+            Client.ReactionRemoved += ClientOnReactionRemoved;
 
             Client.Ready += () =>
             {
@@ -82,6 +87,21 @@ namespace DOG
             };
 
             await Task.Delay(-1);
+        }
+
+        private Task ClientOnReactionRemoved(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> msg, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            if (DogsUpForCapture.ContainsKey(msg.Id) && !reaction.Channel.GetUserAsync(reaction.UserId).Result.IsBot)
+            {
+                DogsUpForCapture[msg.Id].TrySetResult(reaction.UserId);
+            }
+
+            return Task.CompletedTask;
         }
 
         private Task JoinedGuild(SocketGuild guild)
