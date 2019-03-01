@@ -23,6 +23,8 @@ namespace DOG
         {
             _token = File.ReadAllText("token.txt");
 
+            var rnd = new Random(Guid.NewGuid().GetHashCode());
+
 /*            var dg = new DogGen();
 
             Console.WriteLine("GENERATING WITH 10 POWER");
@@ -44,10 +46,10 @@ namespace DOG
             }*/
         }
 
-        internal DiscordSocketClient Client;
-        internal DOGContext Context = new DOGContext();
-        internal CommandService CommandService;
-        internal DogGen DogGen = new DogGen();
+        public DiscordSocketClient Client;
+        public DOGContext Context = new DOGContext();
+        public CommandService CommandService;
+        public DogGen DogGen = new DogGen();
 
         private IServiceProvider _services;
         private readonly string _token;

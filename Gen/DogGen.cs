@@ -16,7 +16,7 @@ namespace DOG.Gen
         private const float StatPenaltyScaling = 1.1F;
         private NameGen _ng = new NameGen();
         //private string[] dogPictures = Directory.GetFiles("D:\\Dev\\DOG\\dogs", "*.jpg", SearchOption.AllDirectories);
-        private JArray _dogPictures = JArray.Parse(File.ReadAllText("D:\\Dev\\DOG\\Gen\\dogs.json"));
+        public JArray DogPictures = JArray.Parse(File.ReadAllText("D:\\Dev\\DOG\\Gen\\dogs.json"));
         
 
         private List<Tuple<int,int>> _rolls = new List<Tuple<int, int>>
@@ -56,7 +56,7 @@ namespace DOG.Gen
             return _rnd.Next(_rolls[9].Item1, _rolls[9].Item2);
         }
 
-        internal Dog GenerateDog(int power, int experience)
+        public Dog GenerateDog(int power, int experience)
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             var dog = new Dog();
@@ -200,7 +200,7 @@ namespace DOG.Gen
             dog.Experience = experience;
 
 
-            dog.ImagePath = "https://random.dog/" + _dogPictures[rnd.Next(_dogPictures.Count)];
+            dog.ImagePath = "https://random.dog/" + DogPictures[rnd.Next(DogPictures.Count)];
 
 
             return dog;

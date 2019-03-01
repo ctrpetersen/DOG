@@ -38,19 +38,18 @@ namespace DOG
             await client.SetGameAsync($"{message} | {client.Guilds.Count} guilds, {client.Guilds.Sum(guild => guild.Users.Count) - 1} users", null, activityType);
         }
 
-        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, bool isWild = false)
+        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, bool catchable = false)
         {
             var eb = new EmbedBuilder();
             eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
             eb.WithColor(Color.DarkBlue);
             
-
             if (dog != null)
             {
                 eb.AddField($"**{dog.Name}**", (DogClasses)dog.Class);
 
-                eb.AddField($"⚔    🛡    ❤", $"```{dog.AtkPower.ToString().PadRight(4) + dog.Defense.ToString().PadRight(5) + dog.Health}```");
-                eb.AddField($"🔮    🔰    🙏", $"```{dog.Intelligence.ToString().PadRight(4) + dog.Will.ToString().PadRight(5) + dog.Prayer}```");
+                eb.AddField($"⚔            🛡            ❤", $"```{dog.AtkPower.ToString().PadRight(7) + dog.Defense.ToString().PadRight(8) + dog.Health}```");
+                eb.AddField($"🔮            🔰            🙏", $"```{dog.Intelligence.ToString().PadRight(7) + dog.Will.ToString().PadRight(8) + dog.Prayer}```");
 
                 eb.WithImageUrl(dog.ImagePath);
                 eb.WithCurrentTimestamp();
@@ -77,7 +76,16 @@ namespace DOG
                         eb.WithThumbnailUrl("https://i.imgur.com/S3dfkP5.png");
                         break;
                 }
-                
+
+                if (catchable)
+                {
+                    eb.AddField("**This dog is able to be catched!**", "React to this message to catch it!");
+                }
+            }
+            else
+            {
+                var rnd = new Random(Guid.NewGuid().GetHashCode());
+                eb.WithImageUrl("https://random.dog/" + D_O_G.Instance.DogGen.DogPictures[rnd.Next(D_O_G.Instance.DogGen.DogPictures.Count)]);
             }
 
             return eb.Build();

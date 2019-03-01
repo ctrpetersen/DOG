@@ -4,7 +4,7 @@ using DOG.Entity;
 
 namespace DOG.Gen
 {
-    internal class NameGen
+    public class NameGen
     {
         private readonly List<string> _dogPrefixes = new List<string>
         {
@@ -473,7 +473,7 @@ namespace DOG.Gen
             "Vagan's Avatar",
             "Caustically autistic",
             "Critically Failing",
-            "Hollowed Internal Structure",
+            "Hollowed public Structure",
             "Seriously bad at everything",
             "Subscribed to the Euthanasia list",
             "PETA defender",
@@ -520,7 +520,7 @@ namespace DOG.Gen
         private const int GodlikeFlatIncrease = 15;
         private const double ChanceOfGodlike = 0.04;
 
-        internal string GenerateDogName(ref Dog dog)
+        public string GenerateDogName(ref Dog dog)
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             var name = "";

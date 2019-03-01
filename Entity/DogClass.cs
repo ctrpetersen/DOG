@@ -2,7 +2,7 @@
 
 namespace DOG.Entity
 {
-    internal enum DogClasses
+    public enum DogClasses
     {
         Guardian = 0, //def+hp+atk
         Champion = 1, //hp+atk+def
@@ -12,7 +12,7 @@ namespace DOG.Entity
         Elementalist = 5 //int+will+health
     }
 
-    internal enum DogClassSpecialEffect
+    public enum DogClassSpecialEffect
     {
         GuardianEffect = 0,
         ChampionEffect = 1,
@@ -22,20 +22,20 @@ namespace DOG.Entity
         ElementalistEffect = 5
     }
 
-    internal struct DogClassBonuses
+    public struct DogClassBonuses
     {
-        internal float HealthScaling;
-        internal float AtkPowerScaling;
-        internal float DefenseScaling;
-        internal float PrayerScaling;
-        internal float WillScaling;
-        internal float IntelligenceScaling;
-        internal DogClassSpecialEffect SpecialEffect;
+        public float HealthScaling;
+        public float AtkPowerScaling;
+        public float DefenseScaling;
+        public float PrayerScaling;
+        public float WillScaling;
+        public float IntelligenceScaling;
+        public DogClassSpecialEffect SpecialEffect;
     }
 
-    internal static class DogClass
+    public static class DogClass
     {
-        internal static DogClassBonuses GetClassBonus(DogClasses dogClass)
+        public static DogClassBonuses GetClassBonus(DogClasses dogClass)
         {
             var classBonus = new DogClassBonuses();
 

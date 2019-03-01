@@ -265,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandsDebug.cs" />
+    <Compile Include="Commands\CommandsDogCatching.cs" />
     <Compile Include="Commands\CommandsUtility.cs" />
     <Compile Include="Entity\DogClass.cs" />
     <Compile Include="Entity\Dog.cs" />
