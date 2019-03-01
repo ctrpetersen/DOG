@@ -89,7 +89,7 @@ namespace DOG
             await Task.Delay(-1);
         }
 
-        private Task ClientOnReactionRemoved(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
+        private Task ClientOnReactionRemoved(Cacheable<IUserMessage, ulong> msg, ISocketMessageChannel channel, SocketReaction reaction)
         {
             throw new NotImplementedException();
         }
