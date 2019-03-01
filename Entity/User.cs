@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace DOG.Entity
+namespace DOG
 {
     public partial class User
     {
@@ -9,8 +10,8 @@ namespace DOG.Entity
             Dogs = new HashSet<Dog>();
         }
 
-        public int Id { get; set; }
-        public long DiscordId { get; set; }
+        public string Id { get; set; }
+        public string DiscordId { get; set; }
         public int TrainerExperience { get; set; }
         public int Bones { get; set; }
 
@@ -18,7 +19,7 @@ namespace DOG.Entity
 
         public override string ToString()
         {
-            return $"Id: {Id}, DiscordId: {DiscordId}, TrainerExperience: {TrainerExperience}, Bones: {Bones}, Dogs: {Dogs}";
+            return $"DiscordId: {DiscordId}, TrainerExperience: {TrainerExperience}, Bones: {Bones}";
         }
     }
 }

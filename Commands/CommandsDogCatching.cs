@@ -44,22 +44,32 @@ namespace DOG.Commands
                     await message.ModifyAsync(msg =>
                         msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been catched!**", $"Catched by {catcher.Username}!"));
 
-                    if (!D_O_G.Instance.Context.Users.Any(u => (ulong) u.DiscordId == catcher.Id))
+                    User user;
+                    if (!D_O_G.Instance.Context.Users.Any(u => u.DiscordId == catcher.Id.ToString()))
                     {
-                        var user = new User
+                        //add new user to db
+                        var newUser = new User
                         {
                             Bones = 0,
-                            DiscordId = (long)catcher.Id
+                            DiscordId = catcher.Id.ToString(),
+                            TrainerExperience = 0
                         };
-                        D_O_G.Instance.Context.Users.Add(user);
-                        dog.Owner = user;
+                        await D_O_G.Instance.Context.Users.AddAsync(newUser);
+                        await D_O_G.Instance.Context.SaveChangesAsync();
+                        user = newUser;
+                        Console.WriteLine($"added {newUser} to db");
                     }
                     else
                     {
-                        dog.Owner = D_O_G.Instance.Context.Users.First(u => u.DiscordId == (long) catcher.Id);
+                        user = D_O_G.Instance.Context.Users.First(u => u.DiscordId == catcher.Id.ToString());
                     }
 
-                    D_O_G.Instance.Context.Dogs.Add(dog);
+                    dog.OwnerId = user.DiscordId;
+                    user.Dogs.Add(dog);
+                    await D_O_G.Instance.Context.Dogs.AddAsync(dog);
+                    await D_O_G.Instance.Context.SaveChangesAsync();
+
+                    //save dog to user
 
                 }
                 else
@@ -67,10 +77,6 @@ namespace DOG.Commands
                     await message.ModifyAsync(msg =>
                         msg.Embed = Utility.GenerateEmbedDog(dog, null, "**No one catched the dog!**", "It has now escaped into the woods, forever lost."));
                 }
-
-                D_O_G.Instance.Context.SaveChanges();
-                D_O_G.Instance.DogsUpForCapture.Remove(message.Id);
-                Console.WriteLine(D_O_G.Instance.Context.Dogs.Count());
             });
         }
     }

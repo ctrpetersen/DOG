@@ -20,11 +20,22 @@ namespace DOG
         public static D_O_G Instance => _instance ?? (_instance = new D_O_G());
         private static D_O_G _instance;
 
+        public DiscordSocketClient Client;
+        public DOGContext Context = new DOGContext();
+        public CommandService CommandService;
+        public DogGen DogGen = new DogGen();
+        public Dictionary<ulong, TaskCompletionSource<ulong>> DogsUpForCapture = new Dictionary<ulong, TaskCompletionSource<ulong>>();
+
+        private IServiceProvider _services;
+        private readonly string _token;
+
         private D_O_G()
         {
             _token = File.ReadAllText("token.txt");
 
             var rnd = new Random(Guid.NewGuid().GetHashCode());
+
+            //Console.WriteLine(Context.Users.First(u => u.DiscordId == "153091208564965376").Dogs.Count);
 
 /*            var dg = new DogGen();
 
@@ -47,14 +58,6 @@ namespace DOG
             }*/
         }
 
-        public DiscordSocketClient Client;
-        public DOGContext Context = new DOGContext();
-        public CommandService CommandService;
-        public DogGen DogGen = new DogGen();
-        public Dictionary<ulong, TaskCompletionSource<ulong>> DogsUpForCapture = new Dictionary<ulong, TaskCompletionSource<ulong>>();
-
-        private IServiceProvider _services;
-        private readonly string _token;
 
         public async Task StartAsync()
         {

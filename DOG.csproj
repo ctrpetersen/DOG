@@ -267,9 +267,9 @@
     <Compile Include="Commands\CommandsDebug.cs" />
     <Compile Include="Commands\CommandsDogCatching.cs" />
     <Compile Include="Commands\CommandsUtility.cs" />
-    <Compile Include="Entity\DogClass.cs" />
     <Compile Include="Entity\Dog.cs" />
     <Compile Include="Entity\DOGContext.cs" />
+    <Compile Include="Entity\DogClass.cs" />
     <Compile Include="D_O_G.cs" />
     <Compile Include="Gen\DogGen.cs" />
     <Compile Include="Gen\NameGen.cs" />

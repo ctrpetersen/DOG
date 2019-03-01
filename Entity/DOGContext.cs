@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using DOG.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -54,7 +53,6 @@ namespace DOG
                 entity.Property(e => e.Health).HasColumnName("health");
 
                 entity.Property(e => e.ImagePath)
-                    .IsRequired()
                     .HasColumnName("image_path")
                     .HasMaxLength(100);
 
@@ -65,16 +63,17 @@ namespace DOG
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasColumnName("name")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Origin)
-                    .IsRequired()
                     .HasColumnName("origin")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.OwnerId).HasColumnName("owner_id");
+                entity.Property(e => e.OwnerId)
+                    .HasColumnName("owner_id")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Prayer).HasColumnName("prayer");
 
@@ -83,7 +82,6 @@ namespace DOG
                 entity.HasOne(d => d.Owner)
                     .WithMany(p => p.Dogs)
                     .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Dogs_Users");
             });
 
@@ -100,7 +98,6 @@ namespace DOG
                 entity.Property(e => e.Intelligence).HasColumnName("intelligence");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasColumnName("name")
                     .HasMaxLength(100);
 
@@ -113,17 +110,24 @@ namespace DOG
                 entity.HasOne(d => d.Dog)
                     .WithMany(p => p.Items)
                     .HasForeignKey(d => d.DogId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Items_Dogs");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.Bones).HasColumnName("bones");
 
-                entity.Property(e => e.DiscordId).HasColumnName("discord_id");
+                entity.Property(e => e.DiscordId)
+                    .IsRequired()
+                    .HasColumnName("discord_id")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.TrainerExperience).HasColumnName("trainer_experience");
             });
