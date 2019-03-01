@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -19,7 +20,6 @@ namespace DOG.Commands
                 var power = Math.Min(rnd.Next(0, 101), rnd.Next(0, 101));
                 var dog = D_O_G.Instance.DogGen.GenerateDog(power, rnd.Next(0, 1001));
                 ReleaseDog(rnd, 2500, dog);
-
             }
             else
             {
@@ -40,8 +40,27 @@ namespace DOG.Commands
 
                 if (tcs.Task.IsCompleted)
                 {
+                    var catcher = Context.Client.GetUser(tcs.Task.Result);
                     await message.ModifyAsync(msg =>
-                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been catched!**", $"Catched by {Context.Client.GetUser(tcs.Task.Result).Username}!"));
+                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been catched!**", $"Catched by {catcher.Username}!"));
+
+                    if (!D_O_G.Instance.Context.Users.Any(u => (ulong) u.DiscordId == catcher.Id))
+                    {
+                        var user = new User
+                        {
+                            Bones = 0,
+                            DiscordId = (long)catcher.Id
+                        };
+                        D_O_G.Instance.Context.Users.Add(user);
+                        dog.Owner = user;
+                    }
+                    else
+                    {
+                        dog.Owner = D_O_G.Instance.Context.Users.First(u => u.DiscordId == (long) catcher.Id);
+                    }
+
+                    D_O_G.Instance.Context.Dogs.Add(dog);
+
                 }
                 else
                 {
@@ -49,8 +68,9 @@ namespace DOG.Commands
                         msg.Embed = Utility.GenerateEmbedDog(dog, null, "**No one catched the dog!**", "It has now escaped into the woods, forever lost."));
                 }
 
+                D_O_G.Instance.Context.SaveChanges();
                 D_O_G.Instance.DogsUpForCapture.Remove(message.Id);
-
+                Console.WriteLine(D_O_G.Instance.Context.Dogs.Count());
             });
         }
     }
