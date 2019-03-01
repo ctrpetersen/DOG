@@ -91,7 +91,7 @@ namespace DOG
 
         private Task ClientOnReactionRemoved(Cacheable<IUserMessage, ulong> msg, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         private Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> msg, ISocketMessageChannel channel, SocketReaction reaction)
