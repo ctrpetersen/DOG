@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DOG
+namespace DOG.Entity
 {
     public partial class DOGContext : DbContext
     {
@@ -70,10 +70,7 @@ namespace DOG
                     .HasColumnName("origin")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.OwnerId)
-                    .HasColumnName("owner_id")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.OwnerId).HasColumnName("owner_id");
 
                 entity.Property(e => e.Prayer).HasColumnName("prayer");
 
@@ -115,11 +112,7 @@ namespace DOG
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Bones).HasColumnName("bones");
 

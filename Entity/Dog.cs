@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DOG
+namespace DOG.Entity
 {
     public partial class Dog
     {
@@ -11,7 +11,7 @@ namespace DOG
         }
 
         public int Id { get; set; }
-        public string OwnerId { get; set; }
+        public int? OwnerId { get; set; }
         public string Name { get; set; }
         public int? Experience { get; set; }
         public DateTime? LastTrained { get; set; }
@@ -29,14 +29,5 @@ namespace DOG
 
         public virtual User Owner { get; set; }
         public virtual ICollection<Item> Items { get; set; }
-
-        public override string ToString()
-        {
-            return $"OwnerId: {OwnerId}, Name: {Name}, Experience: {Experience}, " +
-                   $"LastTrained: {LastTrained}, DateGotten: {DateGotten}, " +
-                   $"Enchantment: {Enchantment}, Class: {Class}, Health: {Health}, " +
-                   $"AtkPower: {AtkPower}, Defense: {Defense}, Prayer: {Prayer}, Will: {Will}, " +
-                   $"Intelligence: {Intelligence}, ImagePath: {ImagePath}, Origin: {Origin}, Owner: {Owner}";
-        }
     }
 }

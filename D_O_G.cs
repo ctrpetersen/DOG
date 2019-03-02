@@ -35,6 +35,31 @@ namespace DOG
 
             var rnd = new Random(Guid.NewGuid().GetHashCode());
 
+            foreach (var user in Context.Users)
+            {
+                //Context.Users.Remove(user);
+
+                Console.WriteLine($"{user.DiscordId} has:");
+                foreach (var dog in user.Dogs)
+                {
+                    Console.WriteLine(dog.Name);
+                }
+                
+            }
+
+            foreach (var dog in Context.Dogs)
+            {
+                //Context.Dogs.Remove(dog);
+            }
+
+            foreach (var item in Context.Items)
+            {
+                //Context.Items.Remove(item);
+            }
+
+
+            //Context.SaveChanges();
+
             //Console.WriteLine(Context.Users.First(u => u.DiscordId == "153091208564965376").Dogs.Count);
 
 /*            var dg = new DogGen();

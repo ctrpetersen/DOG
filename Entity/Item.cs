@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DOG
+namespace DOG.Entity
 {
     public partial class Item
     {

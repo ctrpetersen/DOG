@@ -45,29 +45,24 @@ namespace DOG.Commands
                         msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been catched!**", $"Catched by {catcher.Username}!"));
 
                     User user;
+
                     if (!D_O_G.Instance.Context.Users.Any(u => u.DiscordId == catcher.Id.ToString()))
                     {
-                        //add new user to db
-                        var newUser = new User
+                        user = new User
                         {
-                            Bones = 0,
-                            DiscordId = catcher.Id.ToString(),
-                            TrainerExperience = 0
+                            DiscordId = catcher.Id.ToString()
                         };
-                        await D_O_G.Instance.Context.Users.AddAsync(newUser);
-                        await D_O_G.Instance.Context.SaveChangesAsync();
-                        user = newUser;
-                        Console.WriteLine($"added {newUser} to db");
                     }
                     else
                     {
-                        user = D_O_G.Instance.Context.Users.First(u => u.DiscordId == catcher.Id.ToString());
+                        user = D_O_G.Instance.Context.Users.First(us => us.DiscordId == catcher.Id.ToString());
                     }
-
-                    dog.OwnerId = user.DiscordId;
+                    
                     user.Dogs.Add(dog);
-                    await D_O_G.Instance.Context.Dogs.AddAsync(dog);
-                    await D_O_G.Instance.Context.SaveChangesAsync();
+                    user.TrainerExperience += 10;
+                    D_O_G.Instance.Context.Dogs.Add(dog);
+                    D_O_G.Instance.Context.Users.Add(user);
+                    D_O_G.Instance.Context.SaveChanges();
 
                     //save dog to user
 
