@@ -263,50 +263,50 @@
     <Compile Include="Commands\CommandsDebug.cs" />
     <Compile Include="Commands\CommandsDogCatching.cs" />
     <Compile Include="Commands\CommandsUtility.cs" />
-    <Compile Include="Dog.cs">
+    <Compile Include="Entity\Dog.cs">
       <DependentUpon>DOGModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DOGModel.Context.cs">
+    <Compile Include="Entity\DogClass.cs" />
+    <Compile Include="D_O_G.cs" />
+    <Compile Include="Entity\DOGModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DOGModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DOGModel.cs">
+    <Compile Include="Entity\DOGModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DOGModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DOGModel.Designer.cs">
+    <Compile Include="Entity\DOGModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DOGModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Entity\DogClass.cs" />
-    <Compile Include="D_O_G.cs" />
+    <Compile Include="Entity\Item.cs">
+      <DependentUpon>DOGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\User.cs">
+      <DependentUpon>DOGModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gen\DogGen.cs" />
     <Compile Include="Gen\NameGen.cs" />
-    <Compile Include="Item.cs">
-      <DependentUpon>DOGModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>DOGModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="DOGModel.edmx">
+    <None Include="efpt.config.json" />
+    <EntityDeploy Include="Entity\DOGModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DOGModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DOGModel.edmx.diagram">
+    <None Include="Entity\DOGModel.edmx.diagram">
       <DependentUpon>DOGModel.edmx</DependentUpon>
     </None>
-    <None Include="efpt.config.json" />
     <None Include="Gen\dogs.json" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -314,12 +314,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DOGModel.Context.tt">
+    <Content Include="Entity\DOGModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DOGModel.edmx</DependentUpon>
       <LastGenOutput>DOGModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DOGModel.tt">
+    <Content Include="Entity\DOGModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DOGModel.edmx</DependentUpon>
       <LastGenOutput>DOGModel.cs</LastGenOutput>

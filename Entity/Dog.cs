@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DOG
+namespace DOG.Entity
 {
     using System;
     using System.Collections.Generic;

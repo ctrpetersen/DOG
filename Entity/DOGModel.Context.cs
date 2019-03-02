@@ -9,7 +9,7 @@
 
 using System.IO;
 
-namespace DOG
+namespace DOG.Entity
 {
     using System;
     using System.Data.Entity;
