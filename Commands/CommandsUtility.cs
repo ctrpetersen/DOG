@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
+using Discord.WebSocket;
 using DOG.Gen;
 
 namespace DOG.Commands
@@ -42,7 +43,7 @@ namespace DOG.Commands
 
         [Command("dogs")]
         [Summary(
-            "Lists all dogs you currently have, along with their id for release / selling, or just a single one.\n*Usage:*\\*dogs <param> (id, all, browse)")]
+            "Lists all dogs you currently have, along with their id for release / selling, or just a single one. Sends a DM with the <all> option.\n*Usage:*\\*dogs <param> (id, all, browse)")]
         [Alias("viewdogs")]
         public async Task ViewDogsCommand(string commandParam)
         {
@@ -57,12 +58,25 @@ namespace DOG.Commands
                 }
                 else
                 {
-                    await ReplyAsync($"Could not find dog with id {parsed}. Execute command without any parameters to view a list of all your dogs with their given IDs.");
+                    await ReplyAsync($"Could not find dog with id: {parsed}.");
                 }
             }
             else
             {
                 //must be param, so browse or all
+                if (commandParam == "all")
+                {
+                    //generate list of all dogs, try DM user
+                    var userId = Context.User.Id.ToString();
+                    if (D_O_G.Instance.Context.Users.First(u => u.discord_id == userId).Dogs.Any())
+                    {
+                        await Discord.UserExtensions.SendMessageAsync(Context.User, "All your dogs:");
+                    }
+                    else
+                    {
+                        await ReplyAsync("You do not have any dogs.");
+                    }
+                }
             }
 
         }
