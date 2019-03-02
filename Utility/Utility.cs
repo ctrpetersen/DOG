@@ -5,7 +5,7 @@ using Discord;
 using Discord.WebSocket;
 using DOG.Entity;
 
-namespace DOG
+namespace DOG.Utility
 {
     public static class Utility
     {
@@ -38,7 +38,7 @@ namespace DOG
             await client.SetGameAsync($"{message} | {client.Guilds.Count} guilds, {client.Guilds.Sum(guild => guild.Users.Count) - 1} users", null, activityType);
         }
 
-        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, string catchName = null, string catchValue = null)
+        public static Embed GenerateEmbedDog(Dog dog = null, string message = null, string catchName = null, string catchValue = null, ulong ownerId = 0)
         {
             var eb = new EmbedBuilder();
             eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
@@ -80,6 +80,12 @@ namespace DOG
                 if (catchName != null)
                 {
                     eb.AddField(catchName, catchValue);
+                }
+
+                if (ownerId != 0)
+                {
+                    var owner = D_O_G.Instance.Client.GetUser(ownerId);
+                    eb.WithFooter($"{dog.experience} experience • Owner: {owner.Username}#{owner.Discriminator}");
                 }
             }
             else

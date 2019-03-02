@@ -108,8 +108,8 @@ namespace DOG
 
             Client.Ready += () =>
             {
-                Utility.SetPlaying("Woof!", Client);
-                Utility.Log(new LogMessage(LogSeverity.Info, "Squid", $"Logged in as {Client.CurrentUser.Username}#{Client.CurrentUser.Discriminator}." +
+                Utility.Utility.SetPlaying("Woof!", Client);
+                Utility.Utility.Log(new LogMessage(LogSeverity.Info, "Squid", $"Logged in as {Client.CurrentUser.Username}#{Client.CurrentUser.Discriminator}." +
                                                               $"\nServing {Client.Guilds.Count} guilds with a total of {Client.Guilds.Sum(guild => guild.Users.Count)} online users."));
                 return Task.CompletedTask;
             };
@@ -134,7 +134,7 @@ namespace DOG
 
         private Task JoinedGuild(SocketGuild guild)
         {
-            Utility.Log(new LogMessage(LogSeverity.Info, "DOG",
+            Utility.Utility.Log(new LogMessage(LogSeverity.Info, "DOG",
                 $"Joined new guild {guild.Name} with {guild.Users.Count}"));
 
             return Task.CompletedTask;

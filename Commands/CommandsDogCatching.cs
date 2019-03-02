@@ -23,7 +23,7 @@ namespace DOG.Commands
             }
             else
             {
-                await ReplyAsync(null, false, Utility.GenerateEmbedDog());
+                await ReplyAsync(null, false, Utility.Utility.GenerateEmbedDog());
             }
         }
 
@@ -31,7 +31,7 @@ namespace DOG.Commands
         {
             var captureDog = Task.Run(async () =>
             {
-                var message = await ReplyAsync(null, false, Utility.GenerateEmbedDog(dog, null, "**This dog is able to be caught!**", "React to this message to catch it!"));
+                var message = await ReplyAsync(null, false, Utility.Utility.GenerateEmbedDog(dog, null, "**This dog is able to be caught!**", "React to this message to catch it!"));
                 await message.AddReactionAsync(new Emoji("🐕"));
 
                 var tcs = new TaskCompletionSource<ulong>();
@@ -42,7 +42,7 @@ namespace DOG.Commands
                 {
                     var catcher = Context.Client.GetUser(tcs.Task.Result);
                     await message.ModifyAsync(msg =>
-                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been caught!**",
+                        msg.Embed = Utility.Utility.GenerateEmbedDog(dog, null, "**This dog has been caught!**",
                             $"Caught by {catcher.Username}!"));
 
                     User user;
@@ -68,7 +68,6 @@ namespace DOG.Commands
                     user.Dogs.Add(dog);
                     user.trainer_experience += 10;
 
-                    //D_O_G.Instance.Context.Dogs.Add(dog);
                     D_O_G.Instance.Context.SaveChanges();
                 }
 
@@ -77,7 +76,7 @@ namespace DOG.Commands
                 else
                 {
                     await message.ModifyAsync(msg =>
-                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**No one caught the dog!**", "It has now escaped into the woods, forever lost."));
+                        msg.Embed = Utility.Utility.GenerateEmbedDog(dog, null, "**No one caught the dog!**", "It has now escaped into the woods, forever lost."));
                 }
             });
         }

@@ -17,7 +17,7 @@ namespace DOG.Commands
                 var dog = D_O_G.Instance.DogGen.GenerateDog(dogPower, 100);
                 
 
-                await ReplyAsync(null, false, Utility.GenerateEmbedDog(dog));
+                await ReplyAsync(null, false, Utility.Utility.GenerateEmbedDog(dog));
             }
         }
 

@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
+using DOG.Gen;
 
 namespace DOG.Commands
 {
@@ -38,6 +40,32 @@ namespace DOG.Commands
             await ReplyAsync($"{reply}");
         }
 
+        [Command("dogs")]
+        [Summary(
+            "Lists all dogs you currently have, along with their id for release / selling, or just a single one.\n*Usage:*\\*dogs <param> (id, all, browse)")]
+        [Alias("viewdogs")]
+        public async Task ViewDogsCommand(string commandParam)
+        {
+            if (int.TryParse(commandParam, out int parsed))
+            {
+                //must be int, so ID
+                var dogExists = D_O_G.Instance.Context.Dogs.Any(d => d.id == parsed);
+                if (dogExists)
+                {
+                    var dog = D_O_G.Instance.Context.Dogs.First(d => d.id == parsed);
+                    await ReplyAsync(null, false, Utility.Utility.GenerateEmbedDog(dog, null, null, null, Context.User.Id));
+                }
+                else
+                {
+                    await ReplyAsync($"Could not find dog with id {parsed}. Execute command without any parameters to view a list of all your dogs with their given IDs.");
+                }
+            }
+            else
+            {
+                //must be param, so browse or all
+            }
+
+        }
 
     }
 }

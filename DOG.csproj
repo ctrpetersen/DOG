@@ -293,7 +293,7 @@
     <Compile Include="Gen\NameGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
