@@ -46,7 +46,7 @@ namespace DOG.Utility
             
             if (dog != null)
             {
-                eb.AddField($"**{dog.name}**", (DogClasses)dog.dog_class);
+                eb.AddField($"***{dog.name}***", (DogClasses)dog.dog_class);
 
                 eb.AddField($"⚔            🛡            ❤", $"```{dog.atk_power.ToString().PadRight(7) + dog.defense.ToString().PadRight(8) + dog.health}```");
                 eb.AddField($"🔮            🔰            🙏", $"```{dog.intelligence.ToString().PadRight(7) + dog.will.ToString().PadRight(8) + dog.prayer}```");

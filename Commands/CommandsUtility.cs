@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DOG.Entity;
 using DOG.Gen;
 
 namespace DOG.Commands
@@ -49,7 +51,6 @@ namespace DOG.Commands
         {
             if (int.TryParse(commandParam, out int parsed))
             {
-                //must be int, so ID
                 var dogExists = D_O_G.Instance.Context.Dogs.Any(d => d.id == parsed);
                 if (dogExists)
                 {
@@ -58,7 +59,7 @@ namespace DOG.Commands
                 }
                 else
                 {
-                    await ReplyAsync($"Could not find dog with id: {parsed}.");
+                    await ReplyAsync($"Could not find dog with id: {parsed}. \n*Usage:*\\*dogs <param> (id, all, browse)");
                 }
             }
             else
@@ -70,14 +71,37 @@ namespace DOG.Commands
                     var userId = Context.User.Id.ToString();
                     if (D_O_G.Instance.Context.Users.First(u => u.discord_id == userId).Dogs.Any())
                     {
-                        await Discord.UserExtensions.SendMessageAsync(Context.User, "All your dogs:");
+                        //await Context.User.SendMessageAsync("All your dogs:");
+                        var eb = new EmbedBuilder();
+                        eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
+                        eb.WithColor(Color.DarkBlue);
+                        eb.WithCurrentTimestamp();
+
+                        foreach (var dog in D_O_G.Instance.Context.Users.First(u => u.discord_id == userId).Dogs)
+                        {
+                            eb.AddField($"***{dog.name}*** • ({dog.id})", (DogClasses) dog.dog_class + "\n" + dog.image_path);
+
+                            eb.AddField($"⚔            🛡            ❤",
+                                $"```{dog.atk_power.ToString().PadRight(7) + dog.defense.ToString().PadRight(8) + dog.health}```");
+                            eb.AddField($"🔮            🔰            🙏",
+                                $"```{dog.intelligence.ToString().PadRight(7) + dog.will.ToString().PadRight(8) + dog.prayer}```");
+
+                            eb.AddField("Experience", dog.experience);
+                        }
+
+                        await Context.User.SendMessageAsync(null, false, eb.Build());
                     }
                     else
                     {
                         await ReplyAsync("You do not have any dogs.");
                     }
                 }
+                else if (commandParam == "browse")
+                {
+
+                }
             }
+
 
         }
 
