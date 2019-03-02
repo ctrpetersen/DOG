@@ -21,7 +21,7 @@ namespace DOG
         private static D_O_G _instance;
 
         public DiscordSocketClient Client;
-        public DOGContext Context = new DOGContext();
+        public DOGEntities Context = new DOGEntities();
         public CommandService CommandService;
         public DogGen DogGen = new DogGen();
         public Dictionary<ulong, TaskCompletionSource<ulong>> DogsUpForCapture = new Dictionary<ulong, TaskCompletionSource<ulong>>();
@@ -39,10 +39,10 @@ namespace DOG
             {
                 //Context.Users.Remove(user);
 
-                Console.WriteLine($"{user.DiscordId} has:");
+                Console.WriteLine($"{user.discord_id} has:");
                 foreach (var dog in user.Dogs)
                 {
-                    Console.WriteLine(dog.Name);
+                    Console.WriteLine(dog.name);
                 }
                 
             }

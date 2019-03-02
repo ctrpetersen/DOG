@@ -7,6 +7,7 @@ using DOG.Entity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
+// ReSharper disable PossibleInvalidOperationException
 
 namespace DOG.Gen
 {
@@ -67,140 +68,140 @@ namespace DOG.Gen
             switch (randomRoll)
             {
                 case 0:
-                    dog.Class = (int)DogClasses.Guardian;
+                    dog.dog_class = (int)DogClasses.Guardian;
 
-                    dog.Defense = _rollStat(remainingChance);
+                    dog.defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Health = _rollStat(remainingChance);
+                    dog.health = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.AtkPower = _rollStat(remainingChance);
+                    dog.atk_power = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Will = _rollStat(remainingChance);
+                    dog.will = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Prayer = _rollStat(remainingChance);
+                    dog.prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Intelligence = _rollStat(remainingChance);
+                    dog.intelligence = _rollStat(remainingChance);
                     break;
                 case 1:
-                    dog.Class = (int)DogClasses.Champion;
+                    dog.dog_class = (int)DogClasses.Champion;
 
-                    dog.Health = _rollStat(remainingChance);
+                    dog.health = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.AtkPower = _rollStat(remainingChance);
+                    dog.atk_power = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Defense = _rollStat(remainingChance);
+                    dog.defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Will = _rollStat(remainingChance);
+                    dog.will = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Prayer = _rollStat(remainingChance);
+                    dog.prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Intelligence = _rollStat(remainingChance);
+                    dog.intelligence = _rollStat(remainingChance);
                     break;
                 case 2:
-                    dog.Class = (int)DogClasses.Paladin;
+                    dog.dog_class = (int)DogClasses.Paladin;
 
-                    dog.Prayer = _rollStat(remainingChance);
+                    dog.prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Will = _rollStat(remainingChance);
+                    dog.will = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Intelligence = _rollStat(remainingChance);
+                    dog.intelligence = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Health = _rollStat(remainingChance);
+                    dog.health = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Defense = _rollStat(remainingChance);
+                    dog.defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.AtkPower = _rollStat(remainingChance);
+                    dog.atk_power = _rollStat(remainingChance);
                     break;
                 case 3:
-                    dog.Class = (int)DogClasses.Assassin;
+                    dog.dog_class = (int)DogClasses.Assassin;
 
-                    dog.AtkPower = _rollStat(remainingChance);
+                    dog.atk_power = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Will = _rollStat(remainingChance);
+                    dog.will = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Prayer = _rollStat(remainingChance);
+                    dog.prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Defense = _rollStat(remainingChance);
+                    dog.defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Intelligence = _rollStat(remainingChance);
+                    dog.intelligence = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Health = _rollStat(remainingChance);
+                    dog.health = _rollStat(remainingChance);
                     break;
                 case 4:
-                    dog.Class = (int)DogClasses.Warlock;
+                    dog.dog_class = (int)DogClasses.Warlock;
 
-                    dog.Will = _rollStat(remainingChance);
+                    dog.will = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Defense = _rollStat(remainingChance);
+                    dog.defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Health = _rollStat(remainingChance);
+                    dog.health = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Intelligence = _rollStat(remainingChance);
+                    dog.intelligence = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Prayer = _rollStat(remainingChance);
+                    dog.prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.AtkPower = _rollStat(remainingChance);
+                    dog.atk_power = _rollStat(remainingChance);
                     break;
                 case 5:
-                    dog.Class = (int)DogClasses.Elementalist;
+                    dog.dog_class = (int)DogClasses.Elementalist;
 
-                    dog.Intelligence = _rollStat(remainingChance);
+                    dog.intelligence = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Will = _rollStat(remainingChance);
+                    dog.will = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Health = _rollStat(remainingChance);
+                    dog.health = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Prayer = _rollStat(remainingChance);
+                    dog.prayer = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.Defense = _rollStat(remainingChance);
+                    dog.defense = _rollStat(remainingChance);
                     remainingChance = remainingChance / StatPenaltyScaling;
 
-                    dog.AtkPower = _rollStat(remainingChance);
+                    dog.atk_power = _rollStat(remainingChance);
                     break;
             }
             
-            var classBonus = DogClass.GetClassBonus((DogClasses)dog.Class);
-            dog.Prayer = Math.Min(200, Math.Max(0, (int) (dog.Prayer * classBonus.PrayerScaling)));
-            dog.AtkPower = Math.Min(200, Math.Max(0, (int) (dog.AtkPower * classBonus.AtkPowerScaling)));
-            dog.Defense = Math.Min(200, Math.Max(0, (int) (dog.Defense * classBonus.DefenseScaling)));
-            dog.Health = Math.Min(200, Math.Max(0, (int) (dog.Health * classBonus.HealthScaling)));
-            dog.Intelligence = Math.Min(200, Math.Max(0, (int) (dog.Intelligence * classBonus.IntelligenceScaling)));
-            dog.Will = Math.Min(200, Math.Max(0, (int) (dog.Will * classBonus.WillScaling)));
+            var classBonus = DogClass.GetClassBonus((DogClasses)dog.dog_class);
+            dog.prayer = Math.Min(200, Math.Max(0, (int) (dog.prayer * classBonus.PrayerScaling)));
+            dog.atk_power = Math.Min(200, Math.Max(0, (int) (dog.atk_power * classBonus.AtkPowerScaling)));
+            dog.defense = Math.Min(200, Math.Max(0, (int) (dog.defense * classBonus.DefenseScaling)));
+            dog.health = Math.Min(200, Math.Max(0, (int) (dog.health * classBonus.HealthScaling)));
+            dog.intelligence = Math.Min(200, Math.Max(0, (int) (dog.intelligence * classBonus.IntelligenceScaling)));
+            dog.will = Math.Min(200, Math.Max(0, (int) (dog.will * classBonus.WillScaling)));
 
-            dog.Name = _ng.GenerateDogName(ref dog);
-            dog.Experience = experience;
+            dog.name = _ng.GenerateDogName(ref dog);
+            dog.experience = experience;
 
 
-            dog.ImagePath = "https://random.dog/" + DogPictures[rnd.Next(DogPictures.Count)];
+            dog.image_path = "https://random.dog/" + DogPictures[rnd.Next(DogPictures.Count)];
 
 
             return dog;

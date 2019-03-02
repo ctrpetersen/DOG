@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Entity.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="owner_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="experience" Type="int" />
+          <Property Name="last_trained" Type="datetime" />
+          <Property Name="date_gotten" Type="datetime" />
+          <Property Name="enchantment" Type="int" />
+          <Property Name="dog_class" Type="int" />
+          <Property Name="health" Type="int" />
+          <Property Name="atk_power" Type="int" />
+          <Property Name="defense" Type="int" />
+          <Property Name="prayer" Type="int" />
+          <Property Name="will" Type="int" />
+          <Property Name="intelligence" Type="int" />
+          <Property Name="image_path" Type="nvarchar" MaxLength="100" />
+          <Property Name="origin" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="slot" Type="int" />
+          <Property Name="dog_id" Type="int" />
+          <Property Name="atk_power" Type="int" />
+          <Property Name="defense" Type="int" />
+          <Property Name="will" Type="int" />
+          <Property Name="intelligence" Type="int" />
+          <Property Name="special_effect" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="discord_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="trainer_experience" Type="int" />
+          <Property Name="bones" Type="int" />
+        </EntityType>
+        <Association Name="FK_Dogs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Dogs" Type="Self.Dogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="owner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Dogs">
+          <End Role="Dogs" Type="Self.Dogs" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dogs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="dog_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntityStoreContainer">
+          <EntitySet Name="Dogs" EntityType="Self.Dogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dogs_Users" Association="Self.FK_Dogs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Dogs" Association="Self.FK_Items_Dogs">
+            <End Role="Dogs" EntitySet="Dogs" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Entity" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="owner_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="experience" Type="Int32" />
+          <Property Name="last_trained" Type="DateTime" Precision="3" />
+          <Property Name="date_gotten" Type="DateTime" Precision="3" />
+          <Property Name="enchantment" Type="Int32" />
+          <Property Name="dog_class" Type="Int32" />
+          <Property Name="health" Type="Int32" />
+          <Property Name="atk_power" Type="Int32" />
+          <Property Name="defense" Type="Int32" />
+          <Property Name="prayer" Type="Int32" />
+          <Property Name="will" Type="Int32" />
+          <Property Name="intelligence" Type="Int32" />
+          <Property Name="image_path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="origin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Dogs_Users" FromRole="Dogs" ToRole="Users" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Items_Dogs" FromRole="Dogs" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="slot" Type="Int32" />
+          <Property Name="dog_id" Type="Int32" />
+          <Property Name="atk_power" Type="Int32" />
+          <Property Name="defense" Type="Int32" />
+          <Property Name="will" Type="Int32" />
+          <Property Name="intelligence" Type="Int32" />
+          <Property Name="special_effect" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dog" Relationship="Self.FK_Items_Dogs" FromRole="Items" ToRole="Dogs" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="discord_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="trainer_experience" Type="Int32" />
+          <Property Name="bones" Type="Int32" />
+          <NavigationProperty Name="Dogs" Relationship="Self.FK_Dogs_Users" FromRole="Users" ToRole="Dogs" />
+        </EntityType>
+        <Association Name="FK_Dogs_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Dogs" Type="Self.Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="owner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Dogs">
+          <End Role="Dogs" Type="Self.Dog" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dogs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="dog_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DOGEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dogs" EntityType="Self.Dog" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Dogs_Users" Association="Self.FK_Dogs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Dogs" Association="Self.FK_Items_Dogs">
+            <End Role="Dogs" EntitySet="Dogs" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EntityStoreContainer" CdmEntityContainer="DOGEntities">
+          <EntitySetMapping Name="Dogs">
+            <EntityTypeMapping TypeName="Entity.Dog">
+              <MappingFragment StoreEntitySet="Dogs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="owner_id" ColumnName="owner_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="experience" ColumnName="experience" />
+                <ScalarProperty Name="last_trained" ColumnName="last_trained" />
+                <ScalarProperty Name="date_gotten" ColumnName="date_gotten" />
+                <ScalarProperty Name="enchantment" ColumnName="enchantment" />
+                <ScalarProperty Name="dog_class" ColumnName="dog_class" />
+                <ScalarProperty Name="health" ColumnName="health" />
+                <ScalarProperty Name="atk_power" ColumnName="atk_power" />
+                <ScalarProperty Name="defense" ColumnName="defense" />
+                <ScalarProperty Name="prayer" ColumnName="prayer" />
+                <ScalarProperty Name="will" ColumnName="will" />
+                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
+                <ScalarProperty Name="image_path" ColumnName="image_path" />
+                <ScalarProperty Name="origin" ColumnName="origin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="Entity.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="slot" ColumnName="slot" />
+                <ScalarProperty Name="dog_id" ColumnName="dog_id" />
+                <ScalarProperty Name="atk_power" ColumnName="atk_power" />
+                <ScalarProperty Name="defense" ColumnName="defense" />
+                <ScalarProperty Name="will" ColumnName="will" />
+                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
+                <ScalarProperty Name="special_effect" ColumnName="special_effect" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Entity.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="discord_id" ColumnName="discord_id" />
+                <ScalarProperty Name="trainer_experience" ColumnName="trainer_experience" />
+                <ScalarProperty Name="bones" ColumnName="bones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -31,7 +31,7 @@ namespace DOG.Commands
         {
             var captureDog = Task.Run(async () =>
             {
-                var message = await ReplyAsync(null, false, Utility.GenerateEmbedDog(dog, null, "**This dog is able to be catched!**", "React to this message to catch it!"));
+                var message = await ReplyAsync(null, false, Utility.GenerateEmbedDog(dog, null, "**This dog is able to be caught!**", "React to this message to catch it!"));
                 await message.AddReactionAsync(new Emoji("🐕"));
 
                 var tcs = new TaskCompletionSource<ulong>();
@@ -42,35 +42,42 @@ namespace DOG.Commands
                 {
                     var catcher = Context.Client.GetUser(tcs.Task.Result);
                     await message.ModifyAsync(msg =>
-                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been catched!**", $"Catched by {catcher.Username}!"));
+                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**This dog has been caught!**",
+                            $"Caught by {catcher.Username}!"));
 
                     User user;
 
-                    if (!D_O_G.Instance.Context.Users.Any(u => u.DiscordId == catcher.Id.ToString()))
+                    var catcherId = catcher.Id.ToString();
+
+                    if (!D_O_G.Instance.Context.Users.Any(u => u.discord_id == catcherId))
                     {
                         user = new User
                         {
-                            DiscordId = catcher.Id.ToString()
+                            discord_id = catcher.Id.ToString(),
+                            trainer_experience = 0,
+                            bones = 0
                         };
+                        D_O_G.Instance.Context.Users.Add(user);
                     }
                     else
                     {
-                        user = D_O_G.Instance.Context.Users.First(us => us.DiscordId == catcher.Id.ToString());
+                        user = D_O_G.Instance.Context.Users.First(us => us.discord_id == catcherId);
                     }
-                    
+
+                    dog.owner_id = user.id;
                     user.Dogs.Add(dog);
-                    user.TrainerExperience += 10;
-                    D_O_G.Instance.Context.Dogs.Add(dog);
-                    D_O_G.Instance.Context.Users.Add(user);
+                    user.trainer_experience += 10;
+
+                    //D_O_G.Instance.Context.Dogs.Add(dog);
                     D_O_G.Instance.Context.SaveChanges();
-
-                    //save dog to user
-
                 }
+
+
+                
                 else
                 {
                     await message.ModifyAsync(msg =>
-                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**No one catched the dog!**", "It has now escaped into the woods, forever lost."));
+                        msg.Embed = Utility.GenerateEmbedDog(dog, null, "**No one caught the dog!**", "It has now escaped into the woods, forever lost."));
                 }
             });
         }

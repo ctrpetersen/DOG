@@ -46,16 +46,16 @@ namespace DOG
             
             if (dog != null)
             {
-                eb.AddField($"**{dog.Name}**", (DogClasses)dog.Class);
+                eb.AddField($"**{dog.name}**", (DogClasses)dog.dog_class);
 
-                eb.AddField($"⚔            🛡            ❤", $"```{dog.AtkPower.ToString().PadRight(7) + dog.Defense.ToString().PadRight(8) + dog.Health}```");
-                eb.AddField($"🔮            🔰            🙏", $"```{dog.Intelligence.ToString().PadRight(7) + dog.Will.ToString().PadRight(8) + dog.Prayer}```");
+                eb.AddField($"⚔            🛡            ❤", $"```{dog.atk_power.ToString().PadRight(7) + dog.defense.ToString().PadRight(8) + dog.health}```");
+                eb.AddField($"🔮            🔰            🙏", $"```{dog.intelligence.ToString().PadRight(7) + dog.will.ToString().PadRight(8) + dog.prayer}```");
 
-                eb.WithImageUrl(dog.ImagePath);
+                eb.WithImageUrl(dog.image_path);
                 eb.WithCurrentTimestamp();
-                eb.WithFooter(dog.Experience + " experience");
+                eb.WithFooter(dog.experience + " experience");
 
-                switch ((DogClasses)dog.Class)
+                switch ((DogClasses)dog.dog_class)
                 {
                     case DogClasses.Assassin:
                         eb.WithThumbnailUrl("https://i.imgur.com/Fs1Hzf5.png");

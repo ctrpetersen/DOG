@@ -524,7 +524,7 @@ namespace DOG.Gen
             var name = "";
 
             var prefixChance =
-                (float) (dog.Prayer + dog.AtkPower + dog.Defense + dog.Health + dog.Intelligence + dog.Will) / 6 *
+                (float) (dog.prayer + dog.atk_power + dog.defense + dog.health + dog.intelligence + dog.will) / 6 *
                 0.01F;
             prefixChance = prefixChance * (prefixChance - 0.7F);
 
@@ -543,76 +543,76 @@ namespace DOG.Gen
             {
                 name += " the " + _dogSuffixGodlike[rnd.Next(0, _dogSuffixGodlike.Count)];
 
-                dog.AtkPower = (int) ((dog.AtkPower + GodlikeFlatIncrease) * GodlikeScale);
-                dog.Defense = (int) ((dog.Defense + GodlikeFlatIncrease) * GodlikeScale);
-                dog.Health = (int) ((dog.Health + GodlikeFlatIncrease) * GodlikeScale);
-                dog.Intelligence = (int) ((dog.Intelligence + GodlikeFlatIncrease) * GodlikeScale);
-                dog.Will = (int) ((dog.Will + GodlikeFlatIncrease) * GodlikeScale);
-                dog.Prayer = (int) ((dog.Prayer + GodlikeFlatIncrease) * GodlikeScale);
+                dog.atk_power = (int) ((dog.atk_power + GodlikeFlatIncrease) * GodlikeScale);
+                dog.defense = (int) ((dog.defense + GodlikeFlatIncrease) * GodlikeScale);
+                dog.health = (int) ((dog.health + GodlikeFlatIncrease) * GodlikeScale);
+                dog.intelligence = (int) ((dog.intelligence + GodlikeFlatIncrease) * GodlikeScale);
+                dog.will = (int) ((dog.will + GodlikeFlatIncrease) * GodlikeScale);
+                dog.prayer = (int) ((dog.prayer + GodlikeFlatIncrease) * GodlikeScale);
 
                 Console.WriteLine("\n!!!GODLIKE!!!\n");
             }
 
-            else if (dog.AtkPower < UselessMax &&
-                     dog.Defense < UselessMax &&
-                     dog.Health < UselessMax &&
-                     dog.Intelligence < UselessMax &&
-                     dog.Will < UselessMax &&
-                     dog.Prayer < UselessMax)
+            else if (dog.atk_power < UselessMax &&
+                     dog.defense < UselessMax &&
+                     dog.health < UselessMax &&
+                     dog.intelligence < UselessMax &&
+                     dog.will < UselessMax &&
+                     dog.prayer < UselessMax)
             {
                 name += " the " + _dogSuffixUseless[rnd.Next(0, _dogSuffixUseless.Count)];
             }
 
-            else if (dog.AtkPower >= dog.Defense &&
-                     dog.AtkPower >= dog.Health &&
-                     dog.AtkPower >= dog.Intelligence &&
-                     dog.AtkPower >= dog.Will &&
-                     dog.AtkPower >= dog.Prayer)
+            else if (dog.atk_power >= dog.defense &&
+                     dog.atk_power >= dog.health &&
+                     dog.atk_power >= dog.intelligence &&
+                     dog.atk_power >= dog.will &&
+                     dog.atk_power >= dog.prayer)
             {
                 name += " the " + _dogSuffixAtk[rnd.Next(0, _dogSuffixAtk.Count)];
             }
 
-            else if (dog.Defense >= dog.AtkPower &&
-                     dog.Defense >= dog.Health &&
-                     dog.Defense >= dog.Intelligence &&
-                     dog.Defense >= dog.Will &&
-                     dog.Defense >= dog.Prayer)
+            else if (dog.defense >= dog.atk_power &&
+                     dog.defense >= dog.health &&
+                     dog.defense >= dog.intelligence &&
+                     dog.defense >= dog.will &&
+                     dog.defense >= dog.prayer)
             {
                 name += " the " + _dogSuffixDefense[rnd.Next(0, _dogSuffixDefense.Count)];
             }
 
-            else if (dog.Health >= dog.AtkPower &&
-                     dog.Health >= dog.Defense &&
-                     dog.Health >= dog.Intelligence &&
-                     dog.Health >= dog.Will &&
-                     dog.Health >= dog.Prayer)
+            else if (dog.health >= dog.atk_power &&
+                     dog.health >= dog.defense &&
+                     dog.health >= dog.intelligence &&
+                     dog.health >= dog.will &&
+                     dog.health >= dog.prayer)
             {
                 name += " the " + _dogSuffixHealth[rnd.Next(0, _dogSuffixHealth.Count)];
             }
 
-            else if (dog.Intelligence >= dog.AtkPower &&
-                     dog.Intelligence >= dog.Health &&
-                     dog.Intelligence >= dog.Defense &&
-                     dog.Intelligence >= dog.Will &&
-                     dog.Intelligence >= dog.Prayer)
+            else if (dog.intelligence >= dog.atk_power &&
+                     dog.intelligence >= dog.health &&
+                     dog.intelligence >= dog.defense &&
+                     dog.intelligence >= dog.will &&
+                     dog.intelligence >= dog.prayer)
             {
                 name += " the " + _dogSuffixInt[rnd.Next(0, _dogSuffixInt.Count)];
             }
 
-            else if (dog.Will >= dog.AtkPower &&
-                     dog.Will >= dog.Health &&
-                     dog.Will >= dog.Intelligence &&
-                     dog.Will >= dog.Defense &&
-                     dog.Will >= dog.Prayer)
+            else if (dog.will >= dog.atk_power &&
+                     dog.will >= dog.health &&
+                     dog.will >= dog.intelligence &&
+                     dog.will >= dog.defense &&
+                     dog.will >= dog.prayer)
             {
                 name += " the " + _dogSuffixWill[rnd.Next(0, _dogSuffixWill.Count)];
             }
 
-            else if (dog.Prayer >= dog.AtkPower &&
-                     dog.Prayer >= dog.Health &&
-                     dog.Prayer >= dog.Intelligence &&
-                     dog.Prayer >= dog.Defense &&
-                     dog.Prayer >= dog.Will)
+            else if (dog.prayer >= dog.atk_power &&
+                     dog.prayer >= dog.health &&
+                     dog.prayer >= dog.intelligence &&
+                     dog.prayer >= dog.defense &&
+                     dog.prayer >= dog.will)
             {
                 name += " the " + _dogSuffixPrayer[rnd.Next(0, _dogSuffixPrayer.Count)];
             }
