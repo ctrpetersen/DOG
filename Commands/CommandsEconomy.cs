@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -11,7 +12,7 @@ namespace DOG.Commands
     public class CommandsEconomy : ModuleBase<SocketCommandContext>
     {
         //🐕🐶🐩🐾🍖🍗🐺💩
-        private List<string> _emojiString = new List<string>
+        private List<string> _emojisList = new List<string>
         {
             "🐕",
             "🐶",
@@ -109,19 +110,24 @@ namespace DOG.Commands
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             var origMsg = await ReplyAsync($"*SLOTS*\nBid amount: {bonesToBet}");
 
-
-            for (int i = 5; i > 0; i--)
+            var slotRolls = new List<string>
             {
-                var editStr = "";
-                for (int j = 0; j < i; j++)
+                _emojisList[rnd.Next(_emojisList.Count)],
+                _emojisList[rnd.Next(_emojisList.Count)],
+                _emojisList[rnd.Next(_emojisList.Count)],
+                _emojisList[rnd.Next(_emojisList.Count)],
+                _emojisList[rnd.Next(_emojisList.Count)]
+            };
+
+            for (int i = 1; i < 5; i++)
+            {
+                for (int j = i; j < 5; j++)
                 {
-                    editStr += _emojiString[rnd.Next(_emojiString.Count)];
+                    slotRolls[j] = _emojisList[rnd.Next(_emojisList.Count)];
                 }
-
-                await origMsg.ModifyAsync(msg => msg.Content = $"*SLOTS*\nBid amount: {bonesToBet}\n{editStr}");
-                await Task.Delay(2500);
+                await origMsg.ModifyAsync(msg => msg.Content = $"*SLOTS*\nBid amount: {bonesToBet}\n{string.Join(string.Empty, slotRolls.ToArray())}");
+                await Task.Delay(1500);
             }
-
 
         }
     }

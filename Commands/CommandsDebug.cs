@@ -21,6 +21,16 @@ namespace DOG.Commands
             }
         }
 
+        [Command("debugBones")]
+        public async Task GetDog(int bones)
+        {
+            var userId = Context.User.Id.ToString();
+            var user = D_O_G.Instance.Context.Users.First(us => us.discord_id == userId);
+            user.bones += bones;
+            D_O_G.Instance.Context.SaveChanges();
+            await ReplyAsync($"{bones} has been added.");
+        }
+
 
     }
 }

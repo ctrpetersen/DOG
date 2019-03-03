@@ -11,7 +11,7 @@ namespace DOG.Commands
     public class CommandsDogCatching : ModuleBase<SocketCommandContext>
     {
         [Command("dog")]
-        [Summary("Finds a random dog for you, which has a chance of being catchable!")]
+        [Summary("Finds a random dog for you, which has a chance of being catch-able!")]
         public async Task FindDog()
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
@@ -20,7 +20,7 @@ namespace DOG.Commands
             {
                 var power = Math.Min(rnd.Next(0, 101), rnd.Next(0, 101));
                 var dog = D_O_G.Instance.DogGen.GenerateDog(power, rnd.Next(0, 1001));
-                ReleaseDog(rnd, 2500, dog);
+                ReleaseDog(rnd, 4500, dog);
             }
             else
             {

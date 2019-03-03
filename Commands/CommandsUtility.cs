@@ -112,6 +112,7 @@ namespace DOG.Commands
             var user = D_O_G.Instance.Context.Users.First(us => us.discord_id == userId);
 
             var eb = new EmbedBuilder();
+            eb.WithColor(Color.DarkBlue);
             eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
             eb.WithCurrentTimestamp();
             eb.WithThumbnailUrl(Context.User.GetAvatarUrl());
