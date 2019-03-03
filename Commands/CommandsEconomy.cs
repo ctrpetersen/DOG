@@ -24,7 +24,7 @@ namespace DOG.Commands
                 user.trainer_experience += 15;
                 user.last_received_daily = DateTime.Now;
 
-                await ReplyAsync($"Congratulations on your daily bonus of {bones} bones!");
+                await ReplyAsync($"Congratulations on your daily bonus of {bones} bones! You now have {user.bones} bones.");
             }
             else
             {
@@ -56,32 +56,16 @@ namespace DOG.Commands
                 return;
             }
 
-            if (headsOrTails.ToLower() == "heads")
+            if (headsOrTails.ToLower() == "heads" && resultOfFlip == 0 || headsOrTails.ToLower() == "tails" && resultOfFlip == 1)
             {
-                if (resultOfFlip == 0)
-                {
-                    user.bones += bonesToBet;
-                    await ReplyAsync($"Congratulations, you won {bonesToBet} bones!!");
-                }
-                else
-                {
-                    user.bones -= bonesToBet;
-                    await ReplyAsync($"Unfortunately, you lost {bonesToBet} bones. Better luck next time!");
-                }
-            }
 
-            if (headsOrTails.ToLower() == "tails")
+                user.bones += bonesToBet;
+                await ReplyAsync($"Congratulations, you won {bonesToBet} bones!! You now have {user.bones}.");
+            }
+            else
             {
-                if (resultOfFlip == 1)
-                {
-                    user.bones += bonesToBet;
-                    await ReplyAsync($"Congratulations, you won {bonesToBet} bones!!");
-                }
-                else
-                {
-                    user.bones -= bonesToBet;
-                    await ReplyAsync($"Unfortunately, you lost {bonesToBet} bones. Better luck next time!");
-                }
+                user.bones -= bonesToBet;
+                await ReplyAsync($"Unfortunately, you lost {bonesToBet} bones. Better luck next time! You now have {user.bones}.");
             }
 
             D_O_G.Instance.Context.SaveChanges();
