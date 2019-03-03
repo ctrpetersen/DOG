@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.IO;
+using DOG.Utility;
 
 namespace DOG.Entity
 {

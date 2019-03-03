@@ -24,6 +24,7 @@ namespace DOG.Entity
         public string discord_id { get; set; }
         public Nullable<int> trainer_experience { get; set; }
         public Nullable<int> bones { get; set; }
+        public Nullable<System.DateTime> last_received_daily { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dog> Dogs { get; set; }

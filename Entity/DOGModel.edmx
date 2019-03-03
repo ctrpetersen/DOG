@@ -48,6 +48,7 @@
           <Property Name="discord_id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="trainer_experience" Type="int" />
           <Property Name="bones" Type="int" />
+          <Property Name="last_received_daily" Type="datetime" />
         </EntityType>
         <Association Name="FK_Dogs_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -137,6 +138,7 @@
           <Property Name="discord_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="trainer_experience" Type="Int32" />
           <Property Name="bones" Type="Int32" />
+          <Property Name="last_received_daily" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Dogs" Relationship="Self.FK_Dogs_Users" FromRole="Users" ToRole="Dogs" />
         </EntityType>
         <Association Name="FK_Dogs_Users">
@@ -226,6 +228,7 @@
                 <ScalarProperty Name="discord_id" ColumnName="discord_id" />
                 <ScalarProperty Name="trainer_experience" ColumnName="trainer_experience" />
                 <ScalarProperty Name="bones" ColumnName="bones" />
+                <ScalarProperty Name="last_received_daily" ColumnName="last_received_daily" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

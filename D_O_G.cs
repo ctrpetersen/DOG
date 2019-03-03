@@ -33,54 +33,27 @@ namespace DOG
         {
             _token = File.ReadAllText("token.txt");
 
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
+            /*            var rnd = new Random(Guid.NewGuid().GetHashCode());
 
-            foreach (var user in Context.Users)
-            {
-                //Context.Users.Remove(user);
+                        var dg = new DogGen();
 
-                Console.WriteLine($"{user.discord_id} has:");
-                foreach (var dog in user.Dogs)
-                {
-                    Console.WriteLine(dog.name);
-                }
-                
-            }
+                        Console.WriteLine("GENERATING WITH 10 POWER");
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Console.WriteLine(dg.GenerateDog(10, 0));
+                        }
 
-            foreach (var dog in Context.Dogs)
-            {
-                //Context.Dogs.Remove(dog);
-            }
+                        Console.WriteLine("\n\nGENERATING WITH 50 POWER");
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Console.WriteLine(dg.GenerateDog(50, 0));
+                        }
 
-            foreach (var item in Context.Items)
-            {
-                //Context.Items.Remove(item);
-            }
-
-
-            //Context.SaveChanges();
-
-            //Console.WriteLine(Context.Users.First(u => u.DiscordId == "153091208564965376").Dogs.Count);
-
-/*            var dg = new DogGen();
-
-            Console.WriteLine("GENERATING WITH 10 POWER");
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine(dg.GenerateDog(10, 0));
-            }
-
-            Console.WriteLine("\n\nGENERATING WITH 50 POWER");
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine(dg.GenerateDog(50, 0));
-            }
-
-            Console.WriteLine("\n\nGENERATING WITH 100 POWER");
-            for (int i = 0; i < 100; i++)
-            {
-                Console.WriteLine(dg.GenerateDog(100, 0));
-            }*/
+                        Console.WriteLine("\n\nGENERATING WITH 100 POWER");
+                        for (int i = 0; i < 100; i++)
+                        {
+                            Console.WriteLine(dg.GenerateDog(100, 0));
+                        }*/
         }
 
 
@@ -109,7 +82,7 @@ namespace DOG
             Client.Ready += () =>
             {
                 Utility.Utility.SetPlaying("Woof!", Client);
-                Utility.Utility.Log(new LogMessage(LogSeverity.Info, "Squid", $"Logged in as {Client.CurrentUser.Username}#{Client.CurrentUser.Discriminator}." +
+                Utility.Utility.Log(new LogMessage(LogSeverity.Info, "D.O.G", $"Logged in as {Client.CurrentUser.Username}#{Client.CurrentUser.Discriminator}." +
                                                               $"\nServing {Client.Guilds.Count} guilds with a total of {Client.Guilds.Sum(guild => guild.Users.Count)} online users."));
                 return Task.CompletedTask;
             };
@@ -128,6 +101,7 @@ namespace DOG
             {
                 DogsUpForCapture[msg.Id].TrySetResult(reaction.UserId);
             }
+
 
             return Task.CompletedTask;
         }
@@ -151,9 +125,25 @@ namespace DOG
             if (!(messageParam is SocketUserMessage message)) return;
             if (message.Author.IsBot) return;
 
+            //TODO- move user checking and adding of new users here, assume user object with id always exists
+
             var argPos = 0;
             if (!(message.HasCharPrefix('*', ref argPos) || message.HasMentionPrefix(Client.CurrentUser, ref argPos))) return;
             var context = new SocketCommandContext(Client, message);
+
+            var cmdUserId = context.User.Id.ToString();
+            if (!Context.Users.Any(u => u.discord_id == cmdUserId))
+            {
+                var user = new User
+                {
+                    discord_id = cmdUserId,
+                    trainer_experience = 0,
+                    bones = 0
+                };
+                Context.Users.Add(user);
+                Context.SaveChanges();
+            }
+
 
             var result = await CommandService.ExecuteAsync(context, argPos, _services);
             if (!result.IsSuccess)

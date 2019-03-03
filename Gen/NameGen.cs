@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DOG.Entity;
+// ReSharper disable PossibleInvalidOperationException
 
 namespace DOG.Gen
 {
@@ -435,7 +436,6 @@ namespace DOG.Gen
             "Berserker",
             "Ender",
             "Whale Killer",
-            "Genocider",
             "Mass Murderer",
             "Bloody Gladiator",
             "Champion of Blood",
@@ -457,7 +457,6 @@ namespace DOG.Gen
             "Useless",
             "Incompetent",
             "Waste of Meat",
-
             "Salt-infused",
             "Vegan",
             "Yellow Vest",
@@ -470,7 +469,6 @@ namespace DOG.Gen
             "One-hundred years old wrinkled puppy",
             "Manchild",
             "Vagan's Avatar",
-            "Caustically autistic",
             "Critically Failing",
             "Hollowed public Structure",
             "Seriously bad at everything",

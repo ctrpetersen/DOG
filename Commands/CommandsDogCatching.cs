@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using DOG.Entity;
+using DOG.Utility;
 
 namespace DOG.Commands
 {
@@ -45,24 +46,8 @@ namespace DOG.Commands
                         msg.Embed = Utility.Utility.GenerateEmbedDog(dog, null, "**This dog has been caught!**",
                             $"Caught by {catcher.Username}!"));
 
-                    User user;
-
                     var catcherId = catcher.Id.ToString();
-
-                    if (!D_O_G.Instance.Context.Users.Any(u => u.discord_id == catcherId))
-                    {
-                        user = new User
-                        {
-                            discord_id = catcher.Id.ToString(),
-                            trainer_experience = 0,
-                            bones = 0
-                        };
-                        D_O_G.Instance.Context.Users.Add(user);
-                    }
-                    else
-                    {
-                        user = D_O_G.Instance.Context.Users.First(us => us.discord_id == catcherId);
-                    }
+                    var user = D_O_G.Instance.Context.Users.First(us => us.discord_id == catcherId);
 
                     dog.owner_id = user.id;
                     user.Dogs.Add(dog);

@@ -45,7 +45,7 @@ namespace DOG.Commands
 
         [Command("dogs")]
         [Summary(
-            "Lists all dogs you currently have, along with their id for release / selling, or just a single one. Sends a DM with the <all> option.\n*Usage:*\\*dogs <param> (id, all, browse)")]
+            "Lists all dogs you currently have, along with their id for release / selling, or just a single one. Sends a DM with the <all> option.\n*Usage:*\\*dogs <param> (id, all)")]
         [Alias("viewdogs")]
         public async Task ViewDogsCommand(string commandParam)
         {
@@ -101,8 +101,25 @@ namespace DOG.Commands
 
                 }
             }
+        }
 
+        [Command("profile")]
+        [Summary("View your profile. \n*Usage:* \\*profile")]
+        [Alias("viewprofile", "myprofile")]
+        public async Task ViewProfileCommand()
+        {
+            var userId = Context.User.Id.ToString();
+            var user = D_O_G.Instance.Context.Users.First(us => us.discord_id == userId);
 
+            var eb = new EmbedBuilder();
+            eb.WithAuthor(D_O_G.Instance.Client.CurrentUser);
+            eb.WithCurrentTimestamp();
+            eb.WithThumbnailUrl(Context.User.GetAvatarUrl());
+
+            eb.AddField("Trainer experience", user.trainer_experience);
+            eb.AddField("Bones", user.bones);
+            eb.AddField("Dogs", user.Dogs.Count);
+            await ReplyAsync(null, false, eb.Build());
         }
 
     }
