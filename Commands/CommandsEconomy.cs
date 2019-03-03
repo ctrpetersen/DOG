@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Discord;
 using Discord.Commands;
 using DOG.Entity;
 
@@ -8,6 +10,19 @@ namespace DOG.Commands
 {
     public class CommandsEconomy : ModuleBase<SocketCommandContext>
     {
+        //🐕🐶🐩🐾🍖🍗🐺💩
+        private List<string> _emojiString = new List<string>
+        {
+            "🐕",
+            "🐶",
+            "🐩",
+            "🐾",
+            "🍖",
+            "🍗",
+            "🐺",
+            "💩"
+        };
+
         [Command("dailies")]
         [Summary("Grants you your daily bones. \n*Usage:* \\*dailies")]
         [Alias("DailyBonus")]
@@ -21,10 +36,10 @@ namespace DOG.Commands
             {
                 var bones = rnd.Next(1, 1001);
                 user.bones += bones;
-                user.trainer_experience += 15;
+                user.trainer_experience += 50;
                 user.last_received_daily = DateTime.Now;
 
-                await ReplyAsync($"Congratulations on your daily bonus of {bones} bones! You now have {user.bones} bones.");
+                await ReplyAsync($"Congratulations on your daily bonus of {bones} bones! You now have {user.bones} bones. You have also gained 50 experience!");
             }
             else
             {
@@ -60,7 +75,8 @@ namespace DOG.Commands
             {
 
                 user.bones += bonesToBet;
-                await ReplyAsync($"Congratulations, you won {bonesToBet} bones!! You now have {user.bones}.");
+                user.trainer_experience += 10;
+                await ReplyAsync($"Congratulations! You won {bonesToBet} bones!! You now have {user.bones}. You have also gained 10 experience!");
             }
             else
             {
@@ -69,6 +85,44 @@ namespace DOG.Commands
             }
 
             D_O_G.Instance.Context.SaveChanges();
+        }
+
+        [Command("slots")]
+        [Summary("Lets you flip a coin for bones. \n*Usage:* \\*slots <bones to bet>")]
+        public async Task SlotsCommand(int bonesToBet)
+        {
+            if (bonesToBet < 1)
+            {
+                await ReplyAsync("Error - bet must be more than 0.");
+                return;
+            }
+
+            var userId = Context.User.Id.ToString();
+            var user = D_O_G.Instance.Context.Users.First(us => us.discord_id == userId);
+
+            if (user.bones < bonesToBet)
+            {
+                await ReplyAsync("Error - you do not have enough bones to bet.");
+                return;
+            }
+
+            var rnd = new Random(Guid.NewGuid().GetHashCode());
+            var origMsg = await ReplyAsync($"*SLOTS*\nBid amount: {bonesToBet}");
+
+
+            for (int i = 5; i > 0; i--)
+            {
+                var editStr = "";
+                for (int j = 0; j < i; j++)
+                {
+                    editStr += _emojiString[rnd.Next(_emojiString.Count)];
+                }
+
+                await origMsg.ModifyAsync(msg => msg.Content = $"*SLOTS*\nBid amount: {bonesToBet}\n{editStr}");
+                await Task.Delay(2500);
+            }
+
+
         }
     }
 }

@@ -65,7 +65,10 @@ namespace DOG
                 MessageCacheSize = 500
             });
 
-            CommandService = new CommandService();
+            CommandService = new CommandService(new CommandServiceConfig
+            {
+                DefaultRunMode = RunMode.Async
+            });
             _services = new ServiceCollection()
                 .AddSingleton(Client)
                 .AddSingleton(CommandService)
@@ -124,8 +127,6 @@ namespace DOG
         {
             if (!(messageParam is SocketUserMessage message)) return;
             if (message.Author.IsBot) return;
-
-            //TODO- move user checking and adding of new users here, assume user object with id always exists
 
             var argPos = 0;
             if (!(message.HasCharPrefix('*', ref argPos) || message.HasMentionPrefix(Client.CurrentUser, ref argPos))) return;
