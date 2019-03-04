@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Timers;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using DOG.Entity;
 using DOG.Gen;
 using Microsoft.Extensions.DependencyInjection;
+using static DOG.Utility.Utility;
 
 namespace DOG
 {
@@ -28,33 +30,15 @@ namespace DOG
 
         private IServiceProvider _services;
         private readonly string _token;
+        private Timer _timerDatabaseSaving = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
 
         private D_O_G()
         {
             _token = File.ReadAllText("token.txt");
-
-            /*            var rnd = new Random(Guid.NewGuid().GetHashCode());
-
-                        var dg = new DogGen();
-
-                        Console.WriteLine("GENERATING WITH 10 POWER");
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Console.WriteLine(dg.GenerateDog(10, 0));
-                        }
-
-                        Console.WriteLine("\n\nGENERATING WITH 50 POWER");
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Console.WriteLine(dg.GenerateDog(50, 0));
-                        }
-
-                        Console.WriteLine("\n\nGENERATING WITH 100 POWER");
-                        for (int i = 0; i < 100; i++)
-                        {
-                            Console.WriteLine(dg.GenerateDog(100, 0));
-                        }*/
+            _timerDatabaseSaving.AutoReset = true;
+            _timerDatabaseSaving.Elapsed += SaveToDb;
         }
+
 
 
         public async Task StartAsync()
@@ -84,9 +68,11 @@ namespace DOG
 
             Client.Ready += () =>
             {
-                Utility.Utility.SetPlaying("Woof!", Client);
-                Utility.Utility.Log(new LogMessage(LogSeverity.Info, "D.O.G", $"Logged in as {Client.CurrentUser.Username}#{Client.CurrentUser.Discriminator}." +
+                SetPlaying("Woof!", Client);
+                Log(new LogMessage(LogSeverity.Info, "D.O.G", $"Logged in as {Client.CurrentUser.Username}#{Client.CurrentUser.Discriminator}." +
                                                               $"\nServing {Client.Guilds.Count} guilds with a total of {Client.Guilds.Sum(guild => guild.Users.Count)} online users."));
+
+                _timerDatabaseSaving.Start();
                 return Task.CompletedTask;
             };
 
@@ -111,7 +97,7 @@ namespace DOG
 
         private Task JoinedGuild(SocketGuild guild)
         {
-            Utility.Utility.Log(new LogMessage(LogSeverity.Info, "DOG",
+            Log(new LogMessage(LogSeverity.Info, "DOG",
                 $"Joined new guild {guild.Name} with {guild.Users.Count}"));
 
             return Task.CompletedTask;
@@ -142,13 +128,19 @@ namespace DOG
                     bones = 0
                 };
                 Context.Users.Add(user);
-                Context.SaveChanges();
+                //Context.SaveChanges();
             }
 
 
             var result = await CommandService.ExecuteAsync(context, argPos, _services);
             if (!result.IsSuccess)
                 await context.Channel.SendMessageAsync(result.ErrorReason);
+        }
+
+        private void SaveToDb(object sender, ElapsedEventArgs e)
+        {
+            Context.SaveChanges();
+            Log(new LogMessage(LogSeverity.Info, "Database", "Saved to DB successfully.", null));
         }
     }
 }

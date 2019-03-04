@@ -47,7 +47,7 @@ namespace DOG.Commands
                 await ReplyAsync($"Error - you can receive your daily bonus in {(user.last_received_daily.Value.AddDays(1) - DateTime.Now).Hours} hours.");
             }
 
-            D_O_G.Instance.Context.SaveChanges();
+            //D_O_G.Instance.Context.SaveChanges();
         }
 
         [Command("coinflip")]
@@ -77,21 +77,25 @@ namespace DOG.Commands
 
                 user.bones += bonesToBet;
                 user.trainer_experience += 10;
-                await ReplyAsync($"Congratulations! You won {bonesToBet} bones!! You now have {user.bones}. You have also gained 10 experience!");
+                await ReplyAsync($"**🎲Congratulations!🎲** You won {bonesToBet} bones! \nResult: **{(resultOfFlip == 0 ? "Heads" : "Tails")}**\nTotal: **{user.bones}** bones.\nYou have also gained 10 experience!");
             }
             else
             {
                 user.bones -= bonesToBet;
-                await ReplyAsync($"Unfortunately, you lost {bonesToBet} bones. Better luck next time! You now have {user.bones}.");
+                await ReplyAsync($"Unfortunately, you lost {bonesToBet} bones.\nResult: **{(resultOfFlip == 0 ? "Heads" : "Tails")}**\nTotal: **{user.bones}** bones.");
             }
-
-            D_O_G.Instance.Context.SaveChanges();
         }
+
+        private const double ThreeWin = 1.5;
+        private const double FourWin = 2.0;
+        private const double FiveWin = 4.0;
 
         [Command("slots")]
         [Summary("Lets you flip a coin for bones. \n*Usage:* \\*slots <bones to bet>")]
         public async Task SlotsCommand(int bonesToBet)
         {
+
+
             if (bonesToBet < 1)
             {
                 await ReplyAsync("Error - bet must be more than 0.");
@@ -108,7 +112,7 @@ namespace DOG.Commands
             }
 
             var rnd = new Random(Guid.NewGuid().GetHashCode());
-            var origMsg = await ReplyAsync($"*SLOTS*\nBid amount: {bonesToBet}");
+            var origMsg = await ReplyAsync($"**🎲SLOTS🎲**\nBid amount: **{bonesToBet}** bones");
 
             var slotRolls = new List<string>
             {
@@ -125,8 +129,38 @@ namespace DOG.Commands
                 {
                     slotRolls[j] = _emojisList[rnd.Next(_emojisList.Count)];
                 }
-                await origMsg.ModifyAsync(msg => msg.Content = $"*SLOTS*\nBid amount: {bonesToBet}\n{string.Join(string.Empty, slotRolls.ToArray())}");
+                await origMsg.ModifyAsync(msg => msg.Content = $"**🎲SLOTS🎲**\nBid amount: **{bonesToBet}** bones\n{string.Join(string.Empty, slotRolls.ToArray())}");
                 await Task.Delay(1500);
+            }
+
+            var slotCount = slotRolls.GroupBy(r => r).ToDictionary(g => g.Key, g => g.Count());
+
+            if (slotCount.Any(s => s.Value == 3))
+            {
+                user.bones += (int)(bonesToBet * ThreeWin);
+                await origMsg.ModifyAsync(msg => msg.Content = $"**🎲SLOTS🎲**\nBid amount: **{bonesToBet}** bones\n{string.Join(string.Empty, slotRolls.ToArray())}" +
+                                                               $"\nCongratulations, you won **{bonesToBet * ThreeWin}** bones!\n**Total:{user.bones}** bones.");
+            }
+
+            else if (slotCount.Any(s => s.Value == 4))
+            {
+                user.bones += (int)(bonesToBet * FourWin);
+                await origMsg.ModifyAsync(msg => msg.Content = $"**🎲SLOTS🎲**\nBid amount: **{bonesToBet}** bones\n{string.Join(string.Empty, slotRolls.ToArray())}" +
+                                                               $"\nCongratulations, you won **{bonesToBet * FourWin}** bones!\n**Total:{user.bones}** bones.");
+            }
+
+            else if (slotCount.Any(s => s.Value == 5))
+            {
+                user.bones += (int)(bonesToBet * FiveWin);
+                await origMsg.ModifyAsync(msg => msg.Content = $"**🎲SLOTS🎲**\nBid amount: **{bonesToBet}** bones\n{string.Join(string.Empty, slotRolls.ToArray())}" +
+                                                               $"\n!!JACKPOT!!\nCongratulations, you won **{bonesToBet * FiveWin}** bones!\n**Total:{user.bones}** bones.");
+            }
+
+            else
+            {
+                user.bones -= bonesToBet;
+                await origMsg.ModifyAsync(msg => msg.Content = $"**🎲SLOTS🎲**\nBid amount: **{bonesToBet}** bones\n{string.Join(string.Empty, slotRolls.ToArray())}" +
+                                                               $"\nSorry, you lost **{bonesToBet}** bones.\nTotal: **{user.bones}** bones.");
             }
 
         }

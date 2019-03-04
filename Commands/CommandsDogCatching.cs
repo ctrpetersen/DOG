@@ -54,7 +54,7 @@ namespace DOG.Commands
                 user.trainer_experience +=
                     (dog.atk_power + dog.defense + dog.health + dog.intelligence + dog.prayer + dog.will) / 6;
 
-                D_O_G.Instance.Context.SaveChanges();
+                //D_O_G.Instance.Context.SaveChanges();
             }
 
 
